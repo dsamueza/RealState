@@ -1,0 +1,154 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_RealState.cshtml";
+}
+
+<section class="content-header">
+    <h1>
+        Areas de Prospección
+    </h1>
+    @*<ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">Examples</a></li>
+            <li class="active">User profile</li>
+        </ol>*@
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-3">
+
+            @await Html.PartialAsync("_DataArea")
+        </div>
+
+        <div class="col-md-9">
+
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs  ">
+                    <li class="active"><a href="#mail" data-toggle="tab">Correo</a></li>
+                    <li><a href="#timeline" data-toggle="tab">Reunión</a></li>
+                    <li><a href="#note" data-toggle="tab">Notas</a></li>
+                    <li><a href="#settings" data-toggle="tab">Campo</a></li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <div class="active tab-pane" id="mail">
+
+                    @await Html.PartialAsync("_Message")
+                </div>
+                <div class="tab-pane" id="timeline">
+
+
+                </div>
+                <div class="tab-pane" id="note">
+
+                    @await Html.PartialAsync("_Note")
+                </div>
+            </div>
+            <br />
+            <h3> Actividades </h3>
+            <div class="row clearfix">
+                <div class="tab-pane" id="timeline">
+                    <!-- The timeline -->
+                    <ul class="timeline timeline-inverse">
+                        <!-- timeline time label -->
+                        <li class="time-label">
+                            <span class="bg-red">
+                                10 Feb. 2014
+                            </span>
+                        </li>
+                        <!-- /.timeline-label -->
+                        <!-- timeline item -->
+                        <li>
+                            <i class="fa fa-envelope bg-blue"></i>
+
+                            <div class="timeline-item">
+                                <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+
+                                <h3 class="timeline-header"><a href="#">Llamada</a> Enviar Mail</h3>
+
+                                <div class="timeline-body">
+                                   Pregunta de cotización
+                                </div>
+                                <div class="timeline-footer">
+                                    <a class="btn btn-primary btn-xs">Mas</a>
+                                 
+                                </div>
+                            </div>
+                        </li>
+                        <!-- END timeline item -->
+                        <!-- timeline item -->
+                        <li>
+                            <i class="fa fa-user bg-aqua"></i>
+
+                            <div class="timeline-item">
+                                <span class="time"><i class="fa fa-clock-o"></i>Nota</span>
+
+                                <h3 class="timeline-header no-border">
+                                    <a href="#">Llamar al dueño del lugar
+                                </h3>
+                            </div>
+                        </li>
+                        <!-- END timeline item -->
+                        <!-- timeline item -->
+                        <li>
+                            <i class="fa fa-comments bg-yellow"></i>
+
+                            <div class="timeline-item">
+                                <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
+
+                                <h3 class="timeline-header"><a href="#">Jay White</a> Lunes a las 8:0</h3>
+
+                                <div class="timeline-body">
+                                   Cita
+                                </div>
+                                <div class="timeline-footer">
+                                    <a class="btn btn-warning btn-flat btn-xs">View comment</a>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- END timeline item -->
+                        <!-- timeline time label -->
+                        <li class="time-label">
+                            <span class="bg-green">
+                                3 Jan. 2014
+                            </span>
+                        </li>
+                        <!-- /.timeline-label -->
+                        <!-- timeline item -->
+                        <li>
+                            <i class="fa fa-camera bg-purple"></i>
+
+                            <div class="timeline-item">
+                                <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
+
+                                <h3 class="timeline-header"><a href="#">Tarea</a>Fotos de la tarea</h3>
+
+                                <div class="timeline-body">
+                                    <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                    <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                    <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                    <img src="http://placehold.it/150x100" alt="..." class="margin">
+                                </div>
+                            </div>
+                        </li>
+                        <!-- END timeline item -->
+                        <li>
+                            <i class="fa fa-clock-o bg-gray"></i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+    </div>
+</section>
+@section scripts{
+    <script src="~/Framework/bower_components/ckeditor/ckeditor.js"></script>
+    <script src="~/Framework/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js"></script>
+
+    <script>
+
+            //bootstrap WYSIHTML5 - text editor
+        CKEDITOR.replace('editor1')
+    </script>
+}

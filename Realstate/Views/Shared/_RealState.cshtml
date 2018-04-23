@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="~/Framework/bower_components/Ionicons/css/ionicons.min.css">
     <!-- jvectormap -->
     <link rel="stylesheet" href="~/Framework/bower_components/jvectormap/jquery-jvectormap.css">
+    <link href="~/Framework/dist/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <!-- Theme style -->
     <link rel="stylesheet" href="~/Framework/dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -130,7 +131,7 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="index.html"><i class="fa fa-circle-o"></i>Proyecto</a></li>
+                            <li><a href="@Url.Action("Index", "Projects")"><i class="fa fa-circle-o"></i>Proyecto</a></li>
 
                         </ul>
                 </ul>
@@ -366,7 +367,9 @@
     <script src="~/Framework/dist/js/pages/dashboard2.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="~/Framework/dist/js/demo.js"></script>
-
+    <script src="~/Framework/dist/plugins/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="~/Framework/dist/plugins/datatables/jquery.dataTables.js"></script>
+    
 </body>
 </html>

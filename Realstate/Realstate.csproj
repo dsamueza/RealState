@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\Framework\plugins\**" />
+    <Content Remove="wwwroot\Framework\plugins\**" />
+    <EmbeddedResource Remove="wwwroot\Framework\plugins\**" />
+    <None Remove="wwwroot\Framework\plugins\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="wwwroot\Framework\bower_components\bootstrap-colorpicker\.bower.json" />
     <Content Include="wwwroot\Framework\bower_components\bootstrap-colorpicker\bower.json" />
     <Content Include="wwwroot\Framework\bower_components\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.css" />

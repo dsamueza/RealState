@@ -1,0 +1,61 @@
+﻿@model Realstate.Models.BaseDatos.Project
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_RealState.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Project</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Code)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Code)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.StatusRegister)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StatusRegister)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdAccountNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdAccountNavigation.Code)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdTypeProjectNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdTypeProjectNavigation.Code)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdZonaNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdZonaNavigation.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="BaseDatos\" />
+    <Compile Remove="BaseDatos\**" />
+    <EmbeddedResource Remove="BaseDatos\**" />
+    <None Remove="BaseDatos\**" />
   </ItemGroup>
 
 </Project>

@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Realstate.Data;
 using Realstate.Models;
 using Realstate.Services;
+using Realstate.Models.BaseDatos;
 
 namespace Realstate
 {
@@ -26,8 +27,9 @@ namespace Realstate
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+           services.AddDbContext<ApplicationDbContext>(options =>
+               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<GeoRentingContext>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()

@@ -455,7 +455,7 @@ namespace Realstate.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                return RedirectToAction(nameof(HomeController.Index), "RState");
             }
         }
 

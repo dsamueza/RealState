@@ -7,8 +7,8 @@ namespace Realstate.Models.BaseDatos
     {
         public Country()
         {
+            Project = new HashSet<Project>();
             Province = new HashSet<Province>();
-            Zona = new HashSet<Zona>();
         }
 
         public int Id { get; set; }
@@ -16,7 +16,7 @@ namespace Realstate.Models.BaseDatos
         public string Name { get; set; }
         public string StatusRegister { get; set; }
 
+        public ICollection<Project> Project { get; set; }
         public ICollection<Province> Province { get; set; }
-        public ICollection<Zona> Zona { get; set; }
     }
 }

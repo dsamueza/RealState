@@ -10,7 +10,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table id="listproject" class="dataTables_wrapper form-inline dt-bootstrap">
+<table class="table">
     <thead>
         <tr>
                 <th>
@@ -20,7 +20,13 @@
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.Image)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.CreationDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Usercreation)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.StatusRegister)
@@ -29,10 +35,25 @@
                 @Html.DisplayNameFor(model => model.IdAccountNavigation)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdTypeProjectNavigation)
+                @Html.DisplayNameFor(model => model.IdContryNavigation)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdZonaNavigation)
+                @Html.DisplayNameFor(model => model.IdDistrictNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdLinkNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdParishNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdProvinceNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdSectorNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Zona)
             </th>
             <th></th>
         </tr>
@@ -47,7 +68,14 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Image)
+                <img width="75" height="75" src="@Url.Action("GetImage", "Projects", new { item.Id })" />
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.CreationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usercreation)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.StatusRegister)
@@ -56,10 +84,25 @@
                 @Html.DisplayFor(modelItem => item.IdAccountNavigation.Code)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdTypeProjectNavigation.Code)
+                @Html.DisplayFor(modelItem => item.IdContryNavigation.Code)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdZonaNavigation.Id)
+                @Html.DisplayFor(modelItem => item.IdDistrictNavigation.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdLinkNavigation.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdParishNavigation.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdProvinceNavigation.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdSectorNavigation.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zona.Id)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -70,9 +113,3 @@
 }
     </tbody>
 </table>
-<script>
-  $(function () {
-      $("#listproject").DataTable();
-    
-  });
-</script>

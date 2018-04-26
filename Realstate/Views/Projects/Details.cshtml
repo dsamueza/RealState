@@ -24,10 +24,22 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.CreationDate)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Usercreation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Usercreation)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.StatusRegister)
@@ -42,16 +54,46 @@
             @Html.DisplayFor(model => model.IdAccountNavigation.Code)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.IdTypeProjectNavigation)
+            @Html.DisplayNameFor(model => model.IdContryNavigation)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.IdTypeProjectNavigation.Code)
+            @Html.DisplayFor(model => model.IdContryNavigation.Code)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.IdZonaNavigation)
+            @Html.DisplayNameFor(model => model.IdDistrictNavigation)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.IdZonaNavigation.Id)
+            @Html.DisplayFor(model => model.IdDistrictNavigation.Code)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdLinkNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdLinkNavigation.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdParishNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdParishNavigation.Code)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdProvinceNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdProvinceNavigation.Code)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IdSectorNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdSectorNavigation.Code)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Zona)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Zona.Id)
         </dd>
     </dl>
 </div>

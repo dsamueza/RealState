@@ -16,25 +16,27 @@ namespace Realstate.Models.BaseDatos
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<Country> Country { get; set; }
         public virtual DbSet<District> District { get; set; }
+        public virtual DbSet<Link> Link { get; set; }
         public virtual DbSet<Management> Management { get; set; }
         public virtual DbSet<Parish> Parish { get; set; }
+        public virtual DbSet<Predio> Predio { get; set; }
         public virtual DbSet<Project> Project { get; set; }
-        public virtual DbSet<ProspectoAreas> ProspectoAreas { get; set; }
+        public virtual DbSet<Propietario> Propietario { get; set; }
         public virtual DbSet<Province> Province { get; set; }
         public virtual DbSet<Region> Region { get; set; }
         public virtual DbSet<Sector> Sector { get; set; }
         public virtual DbSet<StatusTask> StatusTask { get; set; }
         public virtual DbSet<Task> Task { get; set; }
-        public virtual DbSet<TypeProject> TypeProject { get; set; }
         public virtual DbSet<TypeTask> TypeTask { get; set; }
         public virtual DbSet<Zona> Zona { get; set; }
+        public virtual DbSet<ZonaProspectada> ZonaProspectada { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer(@"Server=tcp:mardisenginetestbd.database.windows.net;Database=GeoRenting;Persist Security Info=False;User ID=mardisengine;Password=Mard!s3ngin3;Encrypt=True;TrustServerCertificate=False;MultipleActiveResultSets=True;App=EntityFramework; Connection Lifetime=240;Timeout=60; Max Pool Size = 200; Min Pool Size = 10; Pooling=True;");
+                optionsBuilder.UseSqlServer(@"Server=tcp:mardisenginetestbd.database.windows.net,1433;Initial Catalog=GeoRenting;Persist Security Info=False;User ID=mardisengine;Password=Mard!s3ngin3;Encrypt=True;TrustServerCertificate=False;MultipleActiveResultSets=True;App=EntityFramework; Connection Lifetime=240;Timeout=60; Max Pool Size = 200; Min Pool Size = 10; Pooling=True;");
             }
         }
 
@@ -102,6 +104,10 @@ namespace Realstate.Models.BaseDatos
 
                 entity.HasIndex(e => e.UserId);
 
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .ValueGeneratedOnAdd();
+
                 entity.Property(e => e.UserId).IsRequired();
 
                 entity.HasOne(d => d.User)
@@ -114,6 +120,10 @@ namespace Realstate.Models.BaseDatos
                 entity.HasKey(e => new { e.UserId, e.RoleId });
 
                 entity.HasIndex(e => e.RoleId);
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .ValueGeneratedOnAdd();
 
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.AspNetUserRoles)
@@ -205,6 +215,23 @@ namespace Realstate.Models.BaseDatos
                     .HasConstraintName("FK_District_Province");
             });
 
+            modelBuilder.Entity<Link>(entity =>
+            {
+                entity.ToTable("Link", "RentingCommon");
+
+                entity.Property(e => e.CreationDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
+                    .HasColumnType("nchar(500)");
+
+                entity.Property(e => e.StatusRegister).HasColumnType("nchar(10)");
+
+                entity.Property(e => e.Usercreation)
+                    .HasColumnName("usercreation")
+                    .HasColumnType("nchar(10)");
+            });
+
             modelBuilder.Entity<Management>(entity =>
             {
                 entity.ToTable("Management", "RentingCommon");
@@ -246,17 +273,65 @@ namespace Realstate.Models.BaseDatos
                     .IsUnicode(false);
             });
 
+            modelBuilder.Entity<Predio>(entity =>
+            {
+                entity.ToTable("Predio", "RentingCore");
+
+                entity.Property(e => e.CreationDate).HasColumnType("datetime");
+
+                entity.Property(e => e.IdPropietario).HasColumnName("idPropietario");
+
+                entity.Property(e => e.IdZonaProspectada).HasColumnName("idZonaProspectada");
+
+                entity.Property(e => e.Image)
+                    .HasColumnName("image")
+                    .HasColumnType("image");
+
+                entity.Property(e => e.Latitude)
+                    .HasColumnName("latitude")
+                    .HasColumnType("nchar(20)");
+
+                entity.Property(e => e.Length)
+                    .HasColumnName("length")
+                    .HasColumnType("nchar(20)");
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
+                    .HasColumnType("nchar(500)");
+
+                entity.Property(e => e.StatusRegister).HasColumnType("nchar(10)");
+
+                entity.Property(e => e.Usercreation)
+                    .HasColumnName("usercreation")
+                    .HasColumnType("nchar(50)");
+
+                entity.Property(e => e.Value)
+                    .HasColumnName("value")
+                    .HasColumnType("nchar(20)");
+
+                entity.Property(e => e.Zona)
+                    .HasColumnName("zona")
+                    .HasColumnType("nchar(10)");
+
+                entity.HasOne(d => d.IdZonaProspectadaNavigation)
+                    .WithMany(p => p.Predio)
+                    .HasForeignKey(d => d.IdZonaProspectada)
+                    .HasConstraintName("FK_Predio_ZonaProspectada");
+            });
+
             modelBuilder.Entity<Project>(entity =>
             {
                 entity.ToTable("Project", "RentingCore");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Code)
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.CreationDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Image)
+                    .IsRequired()
+                    .HasColumnType("image");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -268,74 +343,75 @@ namespace Realstate.Models.BaseDatos
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.IdTypeProjectNavigation)
-                    .WithMany(p => p.Project)
-                    .HasForeignKey(d => d.IdTypeProject)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Project_TypeProject");
-
-                entity.HasOne(d => d.IdZonaNavigation)
-                    .WithMany(p => p.Project)
-                    .HasForeignKey(d => d.IdZona)
-                    .HasConstraintName("FK_Project_Zona");
+                entity.Property(e => e.Usercreation)
+                    .HasColumnName("usercreation")
+                    .HasColumnType("nchar(50)");
 
                 entity.HasOne(d => d.IdAccountNavigation)
                     .WithMany(p => p.Project)
                     .HasForeignKey(d => d.IdAccount)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                   .HasConstraintName("FK_Project_Account");
+                    .HasConstraintName("FK_Project_Account");
+
+                entity.HasOne(d => d.IdContryNavigation)
+                    .WithMany(p => p.Project)
+                    .HasForeignKey(d => d.IdContry)
+                    .HasConstraintName("FK_Project_Country");
+
+                entity.HasOne(d => d.IdDistrictNavigation)
+                    .WithMany(p => p.Project)
+                    .HasForeignKey(d => d.IdDistrict)
+                    .HasConstraintName("FK_Project_District");
+
+                entity.HasOne(d => d.IdLinkNavigation)
+                    .WithMany(p => p.Project)
+                    .HasForeignKey(d => d.IdLink)
+                    .HasConstraintName("FK_Project_Link");
+
+                entity.HasOne(d => d.IdParishNavigation)
+                    .WithMany(p => p.Project)
+                    .HasForeignKey(d => d.IdParish)
+                    .HasConstraintName("FK_Project_Parish");
+
+                entity.HasOne(d => d.IdProvinceNavigation)
+                    .WithMany(p => p.Project)
+                    .HasForeignKey(d => d.IdProvince)
+                    .HasConstraintName("FK_Project_Province");
+
+                entity.HasOne(d => d.IdSectorNavigation)
+                    .WithMany(p => p.Project)
+                    .HasForeignKey(d => d.IdSector)
+                    .HasConstraintName("FK_Project_Sector");
+
+                entity.HasOne(d => d.Zona)
+                    .WithMany(p => p.Project)
+                    .HasForeignKey(d => d.ZonaId)
+                    .HasConstraintName("FK_Project_Zona");
             });
 
-            modelBuilder.Entity<ProspectoAreas>(entity =>
+            modelBuilder.Entity<Propietario>(entity =>
             {
-                entity.ToTable("ProspectoAreas", "RentingCore");
+                entity.ToTable("propietario", "RentingCommon");
 
-                entity.Property(e => e.Code)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.Cedula)
+                    .HasColumnName("cedula")
+                    .HasColumnType("nchar(10)");
 
-                entity.Property(e => e.CreationDate).HasColumnType("datetime");
+                entity.Property(e => e.Email)
+                    .HasColumnName("email")
+                    .HasColumnType("nchar(10)");
 
-                entity.Property(e => e.MainStreet)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
+                entity.Property(e => e.Movil)
+                    .HasColumnName("movil")
+                    .HasColumnType("nchar(10)");
 
                 entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(200)
-                    .IsUnicode(false);
+                    .HasColumnName("name")
+                    .HasColumnType("nchar(10)");
 
-                entity.Property(e => e.Neighborhood)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Reference)
-                    .IsRequired()
-                    .HasMaxLength(500)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.SecundaryStreet)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.StatusRegister)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Zone)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.IdProjectNavigation)
-                    .WithMany(p => p.ProspectoAreas)
-                    .HasForeignKey(d => d.IdProject)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ProspectoAreas_Project");
+                entity.Property(e => e.Phone)
+                    .HasColumnName("phone")
+                    .HasColumnType("nchar(10)");
             });
 
             modelBuilder.Entity<Province>(entity =>
@@ -424,6 +500,8 @@ namespace Realstate.Models.BaseDatos
             {
                 entity.ToTable("Task", "RentingCore");
 
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
                 entity.Property(e => e.AggregateUri)
                     .HasMaxLength(100)
                     .IsUnicode(false);
@@ -446,6 +524,8 @@ namespace Realstate.Models.BaseDatos
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
+                entity.Property(e => e.IdStatusTask).ValueGeneratedOnAdd();
+
                 entity.Property(e => e.Route)
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -456,26 +536,26 @@ namespace Realstate.Models.BaseDatos
                     .IsRequired()
                     .HasMaxLength(20)
                     .IsUnicode(false);
-            });
 
-            modelBuilder.Entity<TypeProject>(entity =>
-            {
-                entity.ToTable("TypeProject", "RentingCommon");
+                entity.Property(e => e.Usercreation)
+                    .HasColumnName("usercreation")
+                    .HasMaxLength(450);
 
-                entity.Property(e => e.Code)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                entity.HasOne(d => d.IdPredioNavigation)
+                    .WithMany(p => p.Task)
+                    .HasForeignKey(d => d.IdPredio)
+                    .HasConstraintName("FK_Task_Predio");
 
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
+                entity.HasOne(d => d.IdStatusTaskNavigation)
+                    .WithMany(p => p.Task)
+                    .HasForeignKey(d => d.IdStatusTask)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Task_StatusTask");
 
-                entity.Property(e => e.StatusRegister)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                entity.HasOne(d => d.IdTypeTaskNavigation)
+                    .WithMany(p => p.Task)
+                    .HasForeignKey(d => d.IdTypeTask)
+                    .HasConstraintName("FK_Task_TypeTask");
             });
 
             modelBuilder.Entity<TypeTask>(entity =>
@@ -500,11 +580,26 @@ namespace Realstate.Models.BaseDatos
 
             modelBuilder.Entity<Zona>(entity =>
             {
-                entity.ToTable("Zona", "RentingCore");
+                entity.ToTable("Zona", "RentingCommon");
 
-                entity.Property(e => e.Avaluo)
-                    .HasColumnName("avaluo")
+                entity.Property(e => e.Description)
+                    .HasColumnName("description")
+                    .HasColumnType("nchar(500)");
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
+                    .HasColumnType("nchar(500)");
+
+                entity.Property(e => e.StatusRegister).HasColumnType("nchar(10)");
+
+                entity.Property(e => e.Usercreation)
+                    .HasColumnName("usercreation")
                     .HasColumnType("nchar(50)");
+            });
+
+            modelBuilder.Entity<ZonaProspectada>(entity =>
+            {
+                entity.ToTable("ZonaProspectada", "RentingCore");
 
                 entity.Property(e => e.Code)
                     .HasColumnName("code")
@@ -516,27 +611,9 @@ namespace Realstate.Models.BaseDatos
 
                 entity.Property(e => e.CreationDate).HasColumnType("datetime");
 
-                entity.Property(e => e.Latitude)
-                    .HasColumnName("latitude")
-                    .HasColumnType("nchar(50)");
-
-                entity.Property(e => e.Length)
-                    .HasColumnName("length")
-                    .HasColumnType("nchar(50)");
-
-                entity.Property(e => e.Linkgeo)
-                    .HasColumnName("linkgeo")
-                    .HasColumnType("nchar(500)");
-
                 entity.Property(e => e.Name)
                     .HasColumnName("name")
                     .HasColumnType("nchar(100)");
-
-                entity.Property(e => e.Photo).HasColumnType("text");
-
-                entity.Property(e => e.Propietario)
-                    .HasColumnName("propietario")
-                    .HasColumnType("nchar(10)");
 
                 entity.Property(e => e.Reference)
                     .HasColumnName("reference")
@@ -552,34 +629,18 @@ namespace Realstate.Models.BaseDatos
 
                 entity.Property(e => e.Streetthree).HasColumnType("nchar(500)");
 
-                entity.Property(e => e.Zona1)
+                entity.Property(e => e.Usercreation)
+                    .HasColumnName("usercreation")
+                    .HasColumnType("nchar(50)");
+
+                entity.Property(e => e.Zona)
                     .HasColumnName("zona")
                     .HasColumnType("nchar(50)");
 
-                entity.HasOne(d => d.IdCountryNavigation)
-                    .WithMany(p => p.Zona)
-                    .HasForeignKey(d => d.IdCountry)
-                    .HasConstraintName("FK_Zona_Country");
-
-                entity.HasOne(d => d.IdDistrictNavigation)
-                    .WithMany(p => p.Zona)
-                    .HasForeignKey(d => d.IdDistrict)
-                    .HasConstraintName("FK_Zona_District");
-
-                entity.HasOne(d => d.IdParishNavigation)
-                    .WithMany(p => p.Zona)
-                    .HasForeignKey(d => d.IdParish)
-                    .HasConstraintName("FK_Zona_Parish");
-
-                entity.HasOne(d => d.IdProvinceNavigation)
-                    .WithMany(p => p.Zona)
-                    .HasForeignKey(d => d.IdProvince)
-                    .HasConstraintName("FK_Zona_Province");
-
-                entity.HasOne(d => d.IdSectorNavigation)
-                    .WithMany(p => p.Zona)
-                    .HasForeignKey(d => d.IdSector)
-                    .HasConstraintName("FK_Zona_Sector");
+                entity.HasOne(d => d.IdProyectoNavigation)
+                    .WithMany(p => p.ZonaProspectada)
+                    .HasForeignKey(d => d.IdProyecto)
+                    .HasConstraintName("FK_ZonaProspectada_Project");
             });
         }
     }

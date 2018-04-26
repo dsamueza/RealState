@@ -7,7 +7,7 @@ namespace Realstate.Models.BaseDatos
     {
         public Parish()
         {
-            Zona = new HashSet<Zona>();
+            Project = new HashSet<Project>();
         }
 
         public int Id { get; set; }
@@ -16,6 +16,6 @@ namespace Realstate.Models.BaseDatos
         public string Name { get; set; }
         public string StatusRegister { get; set; }
 
-        public ICollection<Zona> Zona { get; set; }
+        public ICollection<Project> Project { get; set; }
     }
 }

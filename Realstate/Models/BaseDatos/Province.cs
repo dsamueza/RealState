@@ -8,7 +8,7 @@ namespace Realstate.Models.BaseDatos
         public Province()
         {
             District = new HashSet<District>();
-            Zona = new HashSet<Zona>();
+            Project = new HashSet<Project>();
         }
 
         public int Id { get; set; }
@@ -18,6 +18,6 @@ namespace Realstate.Models.BaseDatos
 
         public Country IdCountryNavigation { get; set; }
         public ICollection<District> District { get; set; }
-        public ICollection<Zona> Zona { get; set; }
+        public ICollection<Project> Project { get; set; }
     }
 }

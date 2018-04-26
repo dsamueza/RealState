@@ -87,7 +87,7 @@ namespace Realstate.Controllers
                     await imagenarchivo.CopyToAsync(stream);
                     project.Image = stream.ToArray();
                 }
-                
+
                 _context.Add(project);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -109,22 +109,18 @@ namespace Realstate.Controllers
             Project project = _context.Project.FirstOrDefault(c => c.Id == Id);
             if (project != null)
             {
-
+                String s = "";
                 string type = string.Empty;
-                if (project.Image!=null)
+                if (project.Image != null)
                 {
-                    type = ".png";
-                }
-                else
-                {
-                    type = "image/jpeg";
+                    s = Convert.ToBase64String(project.Image);
                 }
 
-                return "fdf" + File(project.Image, type);
+                return "data:image / png; base64," + s.ToString();
             }
             else
             {
-                return null;
+                return "";
             }
         }
 

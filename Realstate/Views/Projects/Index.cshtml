@@ -68,7 +68,7 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Image)
+                @*@Html.DisplayFor(modelItem => item.Image)*@
                 <img width="75" height="75" src="@Url.Action("GetImage", "Projects", new { item.Id })" />
             </td>
             <td>

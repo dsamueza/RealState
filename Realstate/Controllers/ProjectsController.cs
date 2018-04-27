@@ -25,7 +25,14 @@ namespace Realstate.Controllers
         // GET: Projects
         public async Task<IActionResult> Index()
         {
-            var geoRentingContext = _context.Project.Include(p => p.IdAccountNavigation).Include(p => p.IdContryNavigation).Include(p => p.IdDistrictNavigation).Include(p => p.IdLinkNavigation).Include(p => p.IdParishNavigation).Include(p => p.IdProvinceNavigation).Include(p => p.IdSectorNavigation).Include(p => p.Zona);
+            var geoRentingContext = _context.Project.Include(p => p.IdAccountNavigation)
+                .Include(p => p.IdContryNavigation)
+                .Include(p => p.IdDistrictNavigation)
+                .Include(p => p.IdLinkNavigation)
+                .Include(p => p.IdParishNavigation)
+                .Include(p => p.IdProvinceNavigation)
+                .Include(p => p.IdSectorNavigation)
+                .Include(p => p.Zona);
             return View(await geoRentingContext.ToListAsync());
         }
 
@@ -116,7 +123,7 @@ namespace Realstate.Controllers
                     s = Convert.ToBase64String(project.Image);
                 }
 
-                return "data:image / png; base64," + s.ToString();
+                return "data:image/png;base64," + s.ToString();
             }
             else
             {

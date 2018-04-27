@@ -26,6 +26,7 @@ namespace Realstate.Models.BaseDatos
         public string Usercreation { get; set; }
         public string StatusRegister { get; set; }
 
+       
         public Account IdAccountNavigation { get; set; }
         public Country IdContryNavigation { get; set; }
         public District IdDistrictNavigation { get; set; }

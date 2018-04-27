@@ -20,10 +20,11 @@
         <link rel="stylesheet" href="~/Framework/bower_components/Ionicons/css/ionicons.min.css">
         <!-- jvectormap -->
         <link rel="stylesheet" href="~/Framework/bower_components/jvectormap/jquery-jvectormap.css">
+        <link href="~/Framework/dist/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
         <!-- Theme style -->
         <link rel="stylesheet" href="~/Framework/dist/css/AdminLTE.min.css">
         <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
+     folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="~/Framework/dist/css/skins/_all-skins.min.css">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -61,8 +62,8 @@
               href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     </environment>
 </head>
-<body class="hold-transition skin-blue sidebar-collapse  sidebar-mini ">
-    <div class="wrapper fixed">
+<body class="hold-transition skin-blue sidebar-collapse  sidebar-mini fixed" >
+    <div class="wrapper">
 
         <header class="main-header">
 
@@ -371,6 +372,41 @@
         <div class="control-sidebar-bg"></div>
 
     </div>
+
+    <!-- ./wrapper -->
+    <!-- jQuery 3 -->
+    <script src="~/Framework/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="~/Framework/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="~/Framework/bower_components/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/Framework/dist/js/adminlte.min.js"></script>
+    <!-- Sparkline -->
+    <script src="~/Framework/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+    <!-- jvectormap  -->
+    <script src="~/Framework/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="~/Framework/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- SlimScroll -->
+    <script src="~/Framework/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- ChartJS -->
+    <script src="~/Framework/bower_components/Chart.js/Chart.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="~/Framework/dist/js/pages/dashboard2.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/Framework/dist/js/demo.js"></script>
+    <script src="~/Framework/dist/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="~/Framework/dist/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="~/bower_components/Flot/jquery.flot.js"></script>
+    <script src="~/bower_components/Flot/jquery.flot.pie.js"></script>
+    <script src="~/bower_components/Flot/jquery.flot.resize.js"></script>
+    <script src="~/bower_components/plugin/jquery.sparkline.min.js"></script>
+    <script src="~/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+    <script src="~/bower_components/jqueryui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+    
+
+
     <environment names="Development">
         <!-- ./wrapper -->
         <!-- jQuery 3 -->
@@ -396,6 +432,8 @@
         <script src="~/Framework/dist/js/demo.js"></script>
 
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="~/Framework/dist/plugins/datatables/jquery.dataTables.js"></script>
+
     </environment>
     <environment names="Staging,Production">
         <!-- ./wrapper -->
@@ -420,9 +458,12 @@
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
         <!-- AdminLTE for demo purposes -->
         <script src="~/Framework/dist/js/demo.js"></script>
-
+        <script src="~/Framework/dist/plugins/datatables/dataTables.bootstrap4.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <link href="~/Framework/dist/plugins/datatables/jquery.dataTables.css" rel="stylesheet" />
+        <script src="~/Framework/dist/plugins/datatables/jquery.dataTables.js"></script>
     </environment>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

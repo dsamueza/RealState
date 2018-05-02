@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Identity;
 using Realstate.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json;
+using Realstate.Helpers;
+using Realstate.Models.Struct;
 
 namespace Realstate.Controllers
 {
@@ -59,64 +62,17 @@ namespace Realstate.Controllers
             }
         }
 
-        // GET: UrbanProperty/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: UrbanProperty/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: UrbanProperty/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: UrbanProperty/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-
-
-        public async Task<IActionResult> AreasProspeccion( int IdProyecto, int IdArea=0)
+        public async Task<IActionResult> AreasProspeccion( int IdProyecto, int IdArea)
         {
 
             var user = await _userManager.GetUserAsync(User);
             if (user != null)
             {
-                _AreaProspeccionDAO.ObtenerNombreProyecto(IdProyecto);
+             
                 ViewBag.NombreProyecto = _AreaProspeccionDAO.ObtenerNombreProyecto(IdProyecto);
                 ViewData["IdPredio"] = IdArea.ToString();
-                return View();
+                ZonaProspectada _model = IdArea > 0 ?  _AreaProspeccionDAO.ObteneZonaProspectada(IdArea) : new ZonaProspectada();
+                return View(_model);
             }
             return RedirectToAction(nameof(AccountController.Login), "Account");
 
@@ -142,6 +98,48 @@ namespace Realstate.Controllers
             }
             return RedirectToAction(nameof(AccountController.Login), "Account");
 
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> GuardarPredios(String ModelJson, String IdArea) {
+            var user = await _userManager.GetUserAsync(User);
+            var _model = JSonConvertUtil.Deserialize<List<PredioViewModel>>(ModelJson);
+            _AreaProspeccionDAO.GuardarPredidios(_model, user.UserName,int.Parse(IdArea));
+            return Json("");
+        }
+
+
+        [HttpGet]
+        public JsonResult GetGetPredio(String idPredio)
+        {
+            try
+            {
+                var model = _AreaProspeccionDAO.ObtenePredios(int.Parse(idPredio));
+                IList<PredioViewModel> _empyModel = new List<PredioViewModel>();
+
+                            PredioViewModel _predio = new PredioViewModel();
+                            _predio.IdProyecto= 0;
+                            _predio.IdZonaProspectada= 0;
+                            _predio.Secuencial= 0;
+                            _predio.IdPropietario= 0;
+                            _predio.Name= "";
+                            _predio.Zona= "";
+                            _predio.Value= "";
+                            _predio.Latitude= "";
+                            _predio.Length= "";
+                            _predio.StatusRegister= "D";
+                            _predio.Image = "";
+                              _predio.Id = 0;
+                _empyModel.Add(_predio);
+               var jsonModel = model!=null ? model : _empyModel;
+                JSonConvertUtil.Convert(jsonModel);
+                return Json(jsonModel);
+            }
+            catch (Exception e)
+            {
+                
+                return null;
+            }
         }
     }
 }

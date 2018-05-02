@@ -285,7 +285,7 @@ namespace Realstate.Models.BaseDatos
 
                 entity.Property(e => e.Image)
                     .HasColumnName("image")
-                    .HasColumnType("image");
+                    .HasColumnType("nvarchar(max)");
 
                 entity.Property(e => e.Latitude)
                     .HasColumnName("latitude")

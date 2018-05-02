@@ -13,20 +13,21 @@
 <section class="content">
     <h2>AreasProspeccion</h2>
 
+    <form asp-action="AreasProspeccion">
 
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title"><b>Proyecto: </b><small> @ViewBag.NombreProyecto </small></h3>
+            </div>
+            <div class="box-body">
+                <div class="col-md-12 form-horizontal">
 
-    <div class="box box-default">
-        <div class="box-header with-border">
-            <h3 class="box-title"><b>Proyecto: </b><small> @ViewBag.NombreProyecto </small></h3>
-        </div>
-        <div class="box-body">
-            <div class="col-md-12">
-                <form asp-action="AreasProspeccion" class="form-horizontal">
                     <div class="col-md-4" hidden>
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group-inline">
                             <label asp-for="IdProyecto" class="control-label "></label>
                             <input asp-for="IdProyecto" class="form-control" />
+                            <input asp-for="Id" class="form-control" />
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -58,20 +59,20 @@
                             <span asp-validation-for="StreetSecundary" class="text-danger"></span>
                         </div>
                     </div>
-                    @*<div class="col-md-4">
-                            <div class="form-group-inline">
-                                <label asp-for="Streetthree" class="control-label"></label>
-                                <input asp-for="Streetthree" class="form-control" />
-                                <span asp-validation-for="Streetthree" class="text-danger"></span>
-                            </div>
+                    <div class="col-md-4">
+                        <div class="form-group-inline">
+                            <label asp-for="Streetthree" class="control-label"></label>
+                            <input asp-for="Streetthree" class="form-control" />
+                            <span asp-validation-for="Streetthree" class="text-danger"></span>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group-inline">
-                                <label asp-for="Streetfour" class="control-label"></label>
-                                <input asp-for="Streetfour" class="form-control" />
-                                <span asp-validation-for="Streetfour" class="text-danger"></span>
-                            </div>
-                        </div>*@
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group-inline">
+                            <label asp-for="Streetfour" class="control-label"></label>
+                            <input asp-for="Streetfour" class="form-control" />
+                            <span asp-validation-for="Streetfour" class="text-danger"></span>
+                        </div>
+                    </div>
                     <div class="col-md-4">
                         <div class="form-group-inline">
                             <label asp-for="Reference" class="control-label"></label>
@@ -105,47 +106,46 @@
                             <span asp-validation-for="StatusRegister" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="col-md-2 pull-right" style="margin-top:10px; margin-right:13px;">
+                 
 
-                        <input type="submit" value="Guardar" class="btn btn-block btn-success btn-flat" />
+                </div>
+                <br />
 
-                    </div>
-                </form>
             </div>
-            <br />
+            <div class="box-footer">
+                <div class="col-md-2 pull-right" style="margin-top:10px; margin-right:13px;">
 
-        </div>
+                    <button type="submit" value="Guardar" class="btn btn-block btn-success btn-flat">   <i class="fa fa-save"></i> Guardar </button>
 
-        @*<div>
-                <a asp-action="Index">Back to List</a>
-            </div>*@
-    </div> 
-    <div id="app">
-      
-
-        <div v-for="i in message " class="box box-warning direct-chat direct-chat-warning">
-            <button v-on:click="repeat">Nueva</button>
-            <div class="box-header with-border">
-
-                <h2 class="box-title"><b>Predio: </b><small>   {{i}}</small></h2>
+                </div>
             </div>
-            <div class="box-body">
-                @await Html.PartialAsync("_Predio")
-            </div>
-
-
-        </div>
+    </form>
+    @*<div>
+            <a asp-action="Index">Back to List</a>
+        </div>*@
     </div>
+    <div id="IdPredio">
+
+        @if (IdRegister != "0")
+        {
+
+            @await Html.PartialAsync("_Predio")
+
+        }
+
+    </div>
+
+
 </section>
 @section scripts{
+
     <script src="~/Framework/bower_components/ckeditor/ckeditor.js"></script>
     <script src="~/Framework/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js"></script>
     <script src="~/Helpers/_PredioHelpers.js"></script>
-
+<script src="~/Framework/plugins/file/fileinput.min.js"></script>
     <script>
         var IdAreaProspeccion = '@Html.Raw(IdRegister)';
-
-      //  bindPredio(IdAreaProspeccion);
-
+        bindPredio(IdAreaProspeccion)
+       
     </script>
 }

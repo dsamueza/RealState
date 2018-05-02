@@ -33,3 +33,12 @@
         display: none;
     }
 }
+.content-predio-img {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+.mardis-predio-img {
+    width: 400px !important;
+    height: 400px !important;
+ 
+}

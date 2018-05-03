@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Realstate.Models.BaseDatos.Project>
+
+@{
+    ViewData["Title"] = "Áreas";
+    Layout = "~/Views/Shared/_RealState.cshtml";
+}
+<section class="content">
+
+    <div class="row col-md-6 col-lg-12  main ">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="card-title">Áreas</h3>
+                </div>
+                <div class="box-body">
+                    <div class="col-md-4">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item active ">
+                                PROYECTOS
+                            </a>
+                            @foreach (var item in Model)
+                            {
+
+                                <a href="#" class="list-group-item" onclick="CargarVista(@item.Id)">
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                    @Html.DisplayFor(modelItem => item.Code)
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </a>
+
+                            }
+                        </div>
+                    </div>
+                    <div class="col-md-8  nav-tabs-custom" id="contenedor">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <script>
+
+
+    function CargarVista(idProject){
+              $.ajax({
+                type: 'POST',
+                dataType: 'html', //el tipo de dato que nos regresara el servidor en este caso regresa html
+                url: '@Url.Action("ZonaProyecto", "ZonaProspectadas", new { idProject = "idProject" })',
+                data: { idProject },
+                //URL del action result que cargara la vista parcial
+                success: function (result) {
+                // si la funcion se ejecuta lanzara un alert
+                    //alert('Success');
+                    //cuando se ejecuta bien la funcion agregara al div vistaParcial el contenido
+                    //que recibio del servidor
+                    $("#contenedor").html(result);
+                },
+
+                error: function (error) {
+                // si hay un error lanzara el mensaje de error
+                    alert('Fail');
+                }
+            });
+        }
+
+
+
+
+    </script>
+}

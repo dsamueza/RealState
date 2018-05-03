@@ -1,0 +1,92 @@
+﻿@model Realstate.Models.BaseDatos.ZonaProspectada
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_RealState.cshtml";
+}
+
+<h2>Edit</h2>
+
+<h4>ZonaProspectada</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="IdProyecto" class="control-label"></label>
+                <select asp-for="IdProyecto" class="form-control" asp-items="ViewBag.IdProyecto"></select>
+                <span asp-validation-for="IdProyecto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Code" class="control-label"></label>
+                <input asp-for="Code" class="form-control" />
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StreetMain" class="control-label"></label>
+                <input asp-for="StreetMain" class="form-control" />
+                <span asp-validation-for="StreetMain" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StreetSecundary" class="control-label"></label>
+                <input asp-for="StreetSecundary" class="form-control" />
+                <span asp-validation-for="StreetSecundary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Streetthree" class="control-label"></label>
+                <input asp-for="Streetthree" class="form-control" />
+                <span asp-validation-for="Streetthree" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Streetfour" class="control-label"></label>
+                <input asp-for="Streetfour" class="form-control" />
+                <span asp-validation-for="Streetfour" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reference" class="control-label"></label>
+                <input asp-for="Reference" class="form-control" />
+                <span asp-validation-for="Reference" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Zona" class="control-label"></label>
+                <input asp-for="Zona" class="form-control" />
+                <span asp-validation-for="Zona" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Commentary" class="control-label"></label>
+                <input asp-for="Commentary" class="form-control" />
+                <span asp-validation-for="Commentary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreationDate" class="control-label"></label>
+                <input asp-for="CreationDate" class="form-control" />
+                <span asp-validation-for="CreationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Usercreation" class="control-label"></label>
+                <input asp-for="Usercreation" class="form-control" />
+                <span asp-validation-for="Usercreation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StatusRegister" class="control-label"></label>
+                <input asp-for="StatusRegister" class="form-control" />
+                <span asp-validation-for="StatusRegister" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

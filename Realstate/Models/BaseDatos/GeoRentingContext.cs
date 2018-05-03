@@ -620,6 +620,7 @@ namespace Realstate.Models.BaseDatos
                     .HasMaxLength(500);
 
                 entity.Property(e => e.StatusRegister).HasColumnType("nchar(10)");
+                entity.Property(e => e.imagen).HasColumnType("varchar(MAX)");
 
                 entity.Property(e => e.StreetMain).HasColumnType("nchar(500)");
 

@@ -4,118 +4,133 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_RealState.cshtml";
 }
+<div class="col-md-9 col-lg-12  main " style="right: 10px;">
+    <section class="invoice">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="page-header">Proyectos</h2>
 
-<h2>Index</h2>
+                <p style="text-align:right">
+                    <a asp-action="Create" class="btn btn-danger glyphicon glyphicon-plus-sign" data-toggle="#miModal"> NUEVO</a>
+                  
+                </p>
+            </div>
+        </div>
+        <div class="box">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table table-bordered table-striped" id="tablaproyectos">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Code)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Image)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CreationDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Usercreation)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.StatusRegister)
-                </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdAccountNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdContryNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdDistrictNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdLinkNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdParishNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdProvinceNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdSectorNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Zona)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @*@Html.DisplayFor(modelItem => item.Image)*@
-                <img src="data:image;base64,@System.Convert.ToBase64String(item.Image)" width="80" height="80" />
-               
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreationDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Usercreation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StatusRegister)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdAccountNavigation.Code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdContryNavigation.Code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdDistrictNavigation.Code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdLinkNavigation.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdParishNavigation.Code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdProvinceNavigation.Code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdSectorNavigation.Code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Zona.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-<script>
- 
-        $("#tablaproyectos").DataTable();
-  
-</script>
+            <div class="box-header">
+                <table class="table table-bordered table-striped" id="tablaproyectos">
+                    <thead>
+                        <tr>
+                            <th>
+                                Código
+                            </th>
+                            <th>
+
+                            </th>
+                            <th>
+                                Nombre
+                            </th>
+
+                            <th>
+                                Provincia
+                            </th>
+                            <th>
+                                Ciudad
+                            </th>
+                            <th>
+                                Fecha de Creación
+                            </th>
+
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    @*@Html.DisplayFor(modelItem => item.Image)*@
+                                    <img src="data:image;base64,@System.Convert.ToBase64String(item.Image)" width="80" height="80" />
+
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdProvinceNavigation.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdDistrictNavigation.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreationDate)
+                                </td>
+
+                                <td>
+                                    <a asp-action="Edit" class="glyphicon glyphicon-pencil" style="font-size: 20px; color: #f39c12;" asp-route-id="@item.Id"></a>
+                                    <a asp-action="Delete" class="glyphicon glyphicon-trash" style="font-size: 20px; color: #ff0000;"asp-route-id="@item.Id"></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Datos Proyecto</h4>
+            </div>
+            <div class="modal-body">
+                <div id="resultado"></div>
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+    @section scripts{
+        <script>
+
+            $("#tablaproyectos").DataTable();
+            @*function llamarVistaParcial() {
+            var laURLDeLaVista = '@Url.Action("CreatePv", "Projects")';
+            $.ajax({
+                cache: false,
+                async: true,
+                type: "GET",
+                url: laURLDeLaVista,
+                data: {},
+                success: function (response) {
+                    $('#resultado').html('');
+                    $('#resultado').load(response);
+                    $('#myModal').modal('show'); 
+                }
+            });*@
+
+            $("#btnCreate").click(function () {
+                $("#resultado").load("/Projects/Create/", function () {
+                    $("#myModal").modal("show")
+                });
+            });
+
+        
+
+           
+        
+
+        </script>
+    }

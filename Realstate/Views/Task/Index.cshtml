@@ -1,13 +1,44 @@
-﻿
+﻿@model IEnumerable<Realstate.Models.Struct.PredioViewModelTab>
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_RealState.cshtml";
 }
+<h1>
+    Areas de Prospección
+</h1>
+<ul class="nav nav-tabs">
+    @{ var active = 0;
+        var Idpredio = 0;}
+    @foreach (var item in Model)
+    {
+        if (active == 0 && ViewBag.IdPredio_unique == "0")
+        {
+            <li role="presentation" class="mardis-nav active" id="@item.Id"><a href="@Url.Action("Index", "Task", new {IdArea = @item.IdZonaProspectada,idPredio=item.Id })">@item.Name</a></li>
+            Idpredio = item.Id;
+        }
+        else
+        {
+            if (ViewBag.IdPredio_unique == @item.Id.ToString())
+            {
+                <li role="presentation" class="mardis-nav active" id="@item.Id"><a href="@Url.Action("Index", "Task", new { IdArea = @item.IdZonaProspectada, idPredio = item.Id })">@item.Name</a></li>
+                Idpredio = item.Id;
+            }
+            else
+            {
+
+                <li role="presentation" class="mardis-nav" id="@item.Id"><a href="@Url.Action("Index", "Task", new {IdArea = @item.IdZonaProspectada,idPredio=item.Id })">@item.Name</a></li>
+            }
+
+        }
+        active = 1;
+    }
+</ul>
+
 
 <section class="content-header">
-    <h1>
-        Areas de Prospección
-    </h1>
+
+
     @*<ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a href="#">Examples</a></li>
@@ -18,8 +49,10 @@
 <section class="content">
     <div class="row">
         <div class="col-md-3">
+          
+                    @await Html.PartialAsync("_DataArea")
+             
 
-            @await Html.PartialAsync("_DataArea")
         </div>
 
         <div class="col-md-9">
@@ -48,6 +81,8 @@
             </div>
             <br />
             <h3> Actividades </h3>
+            @await Html.PartialAsync("_Timeline")
+            @*<h3> Actividades </h3>
             <div class="row clearfix">
                 <div class="tab-pane" id="timeline">
                     <!-- The timeline -->
@@ -69,11 +104,11 @@
                                 <h3 class="timeline-header"><a href="#">Llamada</a> Enviar Mail</h3>
 
                                 <div class="timeline-body">
-                                   Pregunta de cotización
+                                    Pregunta de cotización
                                 </div>
                                 <div class="timeline-footer">
                                     <a class="btn btn-primary btn-xs">Mas</a>
-                                 
+
                                 </div>
                             </div>
                         </li>
@@ -101,7 +136,7 @@
                                 <h3 class="timeline-header"><a href="#">Jay White</a> Lunes a las 8:0</h3>
 
                                 <div class="timeline-body">
-                                   Cita
+                                    Cita
                                 </div>
                                 <div class="timeline-footer">
                                     <a class="btn btn-warning btn-flat btn-xs">View comment</a>
@@ -140,15 +175,27 @@
                     </ul>
                 </div>
             </div>
-    </div>
+        </div>*@
+        </div>
 </section>
+
 @section scripts{
     <script src="~/Framework/bower_components/ckeditor/ckeditor.js"></script>
     <script src="~/Framework/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js"></script>
-
+    <script src="~/Helpers/taskHelpers.js"></script>
     <script>
 
-            //bootstrap WYSIHTML5 - text editor
+        //bootstrap WYSIHTML5 - text editor
+        var IdPredioActivo = '@Html.Raw(Idpredio)';
+      bindPredioID(IdPredioActivo)
+
+            function tab_Perdio(id) {
+                $(".mardis-nav").removeClass("active");
+                var element = document.getElementById(id);
+                element.classList.add("active");
+
+                bindPredioID(id)
+        }
         CKEDITOR.replace('editor1')
     </script>
 }

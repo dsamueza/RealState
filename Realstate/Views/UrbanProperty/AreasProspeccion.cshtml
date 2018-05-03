@@ -1,0 +1,153 @@
+﻿@model Realstate.Models.BaseDatos.ZonaProspectada
+
+@{
+    ViewData["Title"] = "AreasProspeccion";
+    Layout = "~/Views/Shared/_RealState.cshtml";
+
+}
+@{
+
+    var IdRegister = (string)ViewData["IdPredio"];
+
+}
+<section class="content">
+    <h2>AreasProspeccion</h2>
+
+    <form asp-action="AreasProspeccion">
+
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title"><b>Proyecto: </b><small> @ViewBag.NombreProyecto </small></h3>
+            </div>
+            <div class="box-body">
+                <div class="col-md-12 form-horizontal">
+
+                    <div class="col-md-4" hidden>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group-inline">
+                            <label asp-for="IdProyecto" class="control-label "></label>
+                            <input asp-for="IdProyecto" class="form-control" />
+                            <input asp-for="Id" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group-inline">
+                            <label asp-for="Code" class="control-label"></label>
+                            <input asp-for="Code" class="form-control" />
+                            <span asp-validation-for="Code" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group-inline">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group-inline">
+                            <label asp-for="StreetMain" class="control-label"></label>
+                            <input asp-for="StreetMain" class="form-control" />
+                            <span asp-validation-for="StreetMain" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group-inline">
+                            <label asp-for="StreetSecundary" class="control-label"></label>
+                            <input asp-for="StreetSecundary" class="form-control" />
+                            <span asp-validation-for="StreetSecundary" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group-inline">
+                            <label asp-for="Streetthree" class="control-label"></label>
+                            <input asp-for="Streetthree" class="form-control" />
+                            <span asp-validation-for="Streetthree" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group-inline">
+                            <label asp-for="Streetfour" class="control-label"></label>
+                            <input asp-for="Streetfour" class="form-control" />
+                            <span asp-validation-for="Streetfour" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group-inline">
+                            <label asp-for="Reference" class="control-label"></label>
+                            <input asp-for="Reference" class="form-control" />
+                            <span asp-validation-for="Reference" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group-inline">
+                            <label asp-for="Zona" class="control-label"></label>
+                            <input asp-for="Zona" class="form-control" />
+                            <span asp-validation-for="Zona" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group-inline">
+                            <label asp-for="Commentary" class="control-label"></label>
+                            <input asp-for="Commentary" class="form-control" />
+                            <span asp-validation-for="Commentary" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group-inline">
+                            <label asp-for="StatusRegister" class="control-label"></label>
+                            <select name="StatusRegister" class="form-control">
+                                <option value="A">Activo</option>
+                                <option value="D">Desactivado</option>
+                            </select>
+
+                            <span asp-validation-for="StatusRegister" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                </div>
+                <br />
+
+            </div>
+            <div class="box-footer">
+                <div class="col-md-2 pull-right" style="margin-top:10px; margin-right:13px;">
+
+                    <button type="submit" value="Guardar" class="btn btn-block btn-success btn-flat">   <i class="fa fa-save"></i> Guardar </button>
+
+                </div>
+            </div>
+    </form>
+    @*<div>
+            <a asp-action="Index">Back to List</a>
+        </div>*@
+    </div>
+    <div id="IdPredio">
+
+        @if (IdRegister != "0")
+        {
+
+            @await Html.PartialAsync("_Predio")
+
+        }
+
+    </div>
+
+
+</section>
+@section scripts{
+
+    <script src="~/Framework/bower_components/ckeditor/ckeditor.js"></script>
+    <script src="~/Framework/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js"></script>
+    <script src="~/Helpers/_PredioHelpers.js"></script>
+
+    <script>
+     
+        var IdAreaProspeccion = '@Html.Raw(IdRegister)';
+        bindPredio(IdAreaProspeccion)
+    
+
+    </script>
+}

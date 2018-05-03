@@ -1,0 +1,68 @@
+﻿<div id="timeline">
+    <!-- The timeline -->
+
+    <ul v-for="(task, x) in poll.Branches.TaskCampaigns" class="timeline timeline-inverse box">
+        <!-- timeline time label -->
+        <li class="box-header  time-label">
+
+            <button type="button" class="btn btn-box-tool btn bg-olive btn-flat" data-widget="collapse">
+             dsadas
+            </button>
+        </li>
+        <!-- /.timeline-label -->
+        <!-- timeline item -->
+
+        <li class="box-body">
+
+            <i class="fa fa-tasks bg-blue"></i>
+            <div class="timeline-item" style="border-radius:0px !important">
+
+                <span class="time"><i class="fa fa-clock-o"></i>  dsada</span>
+                <h3 class="timeline-header"><a href="#">Tarea :</a>  dsdsa</h3>
+                <div class="timeline-body">
+                    <div class=" invoice-col">
+
+                        <br>
+                        <b>Ruta:</b> dasdsa<br>
+                        <b>Campana:</b> dasdsa<br>
+                        <b>Descripcion:</b> saddas
+                    </div>
+
+                </div>
+                <div class="timeline-footer pull-right ">
+
+                    <a v-bind:href="'../Campaign/TaskPoll?idTask='+ task.Id" class="btn btn-app btn-xs">
+                        <i class="fa fa-tasks"></i> Tarea
+                    </a>
+                    <a v-bind:href="'../Branch/Profile?idBranch='+ task.IdBranch" class="btn btn-app btn-xs">
+                        <i class="fa fa-user"></i> local
+
+                    </a>
+
+                    @*<a v-bind:href="'../Campaign/TaskPoll?idTask='+ task.Id" class="btn btn-google btn-flat btn-xs">Ver Tarea</a>
+                        <a v-bind:href="'../Branch/Profile?idBranch='+ task.IdBranch" class="btn btn-linkedin btn-flat btn-xs">Ir a local</a>*@
+
+                </div>
+            </div>
+        </li>
+
+        <li class="box-body" v-if="poll.Branches.BranchImages!='0'">
+
+            <i class="fa fa-camera bg-purple"></i>
+
+            <div class="timeline-item" style="border-radius:0px !important">
+
+                <h3 class="timeline-header"><a href="#">Fotos</a>  </h3>
+                <div class="timeline-body" style="display: -webkit-inline-box;">
+
+                    @*<img alt="..." v-for="(fotos, imgs) in poll.Branches.BranchImages" v-bind:src="fotos.UrlImage" v-on:click="[openModal(), currentSlide(imgs + 1)]" v-if="fotos.IdCampaign==task.IdCampaign" class="margin " style="width:150px; height:100px;">*@
+
+
+                </div>
+            </div>
+
+        </li>
+
+    </ul>
+
+</div>

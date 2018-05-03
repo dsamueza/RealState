@@ -1,31 +1,35 @@
 ﻿
-        <!-- Profile Image -->
-        <div class="box box-default">
+<div id="PredioTask">
+    <!-- Profile Image -->
+    <div v-for="(predio, index) in predios">
+        <div class="box box-danger">
             <div class="box-body box-profile">
 
-                <img class="profile-user-img img-responsive img-circle" src="~/Framework/dist/img/avatar04.png" alt="User profile picture">
+                <img class="profile-user-img img-responsive  img-circle" :src="predio.image" alt="User profile picture">
 
 
 
-                <p class="text-muted text-center">Edificación Lubricadoras</p>
+                <p class="text-muted text-center">Predio: {{predio.id}}</p>
                 <div class="form-group">
                     <label>Estado</label>
-                    <select class="form-control">
-                        <option>Aprobado</option>
-                        <option>Pendiente</option>
-                        <option>Negado</option>
-
+                    <select name="statusRegister" class="form-control" v-model="predio.statusRegister">
+                        <option value="A">Activo</option>
+                        <option value="D">Desactivado</option>
                     </select>
                 </div>
                 <ul class="list-group list-group-unbordered">
                     <li class="list-group-item">
-                        <b>Dirreción</b> <a class="pull-right">Inca y Syris</a>
+                        <b>Nombre</b> <a class="pull-right">{{predio.name}}</a>
                     </li>
                     <li class="list-group-item">
-                        <b>Referencia</b> <a class="pull-right">Frente a Banco del Pichincha</a>
+                        <b>Propietario</b>
+                        <select v-model="predio.idPropietario" class="form-control" asp-items="@ViewBag.Propietario"></select>
                     </li>
                     <li class="list-group-item">
-                        <b>Zona</b> <a class="pull-right">Norte</a>
+                        <b>Zona</b> <a class="pull-right">{{predio.zona}}</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Dimesiones</b> <a class="pull-right">{{predio.value}}</a>
                     </li>
                 </ul>
 
@@ -35,13 +39,15 @@
         </div>
 
 
-        <div class="box box-default">
+        <div class="box box-danger">
             <div class="box-header with-border">
                 <h3 class="box-title">Localización</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                Mapa
+
+                <div id="map1" class="col-md-12" style="width:100%; height:400px;"></div>
+                <div id="street1" class="col-md-12" style="width:100%; height:400px;"></div>
             </div>
             <!-- /.box-body -->
         </div>
@@ -53,9 +59,21 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                Mapa
+                <img alt="..." v-bind:src="predio.image"  class="margin " style="width:100px; height:70px;">
             </div>
             <!-- /.box-body -->
         </div>
-        <!-- /.box -->
+    </div>
+    
+</div>
+<!-- /.box -->
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZYA-xee_bKiCHQakUcDJtfVXagv_rhbA&callback=initialize">
+</script>
 
+<script type="text/javascript">
+
+  
+                //  bindPredio(IdAreaProspeccion);
+
+</script>

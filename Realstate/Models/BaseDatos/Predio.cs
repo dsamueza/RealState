@@ -15,7 +15,7 @@ namespace Realstate.Models.BaseDatos
         public string Name { get; set; }
         public string Zona { get; set; }
         public string Value { get; set; }
-        public byte[] Image { get; set; }
+        public string Image { get; set; }
         public string Latitude { get; set; }
         public string Length { get; set; }
         public int? IdPropietario { get; set; }

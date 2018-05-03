@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -7,8 +6,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Realstate.Models.BaseDatos;
 using System.IO;
-using System.Net;
-using System.Web;
 using Microsoft.AspNetCore.Http;
 
 namespace Realstate.Controllers
@@ -24,6 +21,18 @@ namespace Realstate.Controllers
 
         // GET: Projects
         public async Task<IActionResult> Index()
+        {
+            var geoRentingContext = _context.Project.Include(p => p.IdAccountNavigation)
+                .Include(p => p.IdContryNavigation)
+                .Include(p => p.IdDistrictNavigation)
+                .Include(p => p.IdLinkNavigation)
+                .Include(p => p.IdParishNavigation)
+                .Include(p => p.IdProvinceNavigation)
+                .Include(p => p.IdSectorNavigation)
+                .Include(p => p.Zona);
+            return View(await geoRentingContext.ToListAsync());
+        }
+        public async Task<IActionResult> ProyectosZona()
         {
             var geoRentingContext = _context.Project.Include(p => p.IdAccountNavigation)
                 .Include(p => p.IdContryNavigation)
@@ -62,6 +71,8 @@ namespace Realstate.Controllers
             return View(project);
         }
 
+
+
         // GET: Projects/Create
         public IActionResult Create()
         {
@@ -73,7 +84,7 @@ namespace Realstate.Controllers
             ViewData["IdProvince"] = new SelectList(_context.Province, "Id", "Name");
             ViewData["IdSector"] = new SelectList(_context.Sector, "Id", "Name");
             ViewData["ZonaId"] = new SelectList(_context.Zona, "Id", "Name");
-            return View();
+            return PartialView();
         }
 
         // POST: Projects/Create
@@ -81,36 +92,45 @@ namespace Realstate.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,IdAccount,Code,Name,IdContry,IdProvince,IdDistrict,IdParish,IdSector,IdLink,ZonaId,Image,CreationDate,Usercreation,StatusRegister")] Project project)
+        public async Task<IActionResult> Create([Bind("Id,IdAccount,Code,Name,IdContry,IdProvince,IdDistrict,IdParish,IdSector,IdLink,ZonaId,Image,CreationDate,Usercreation,StatusRegister")] Project project, IFormFile upload)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var files = Request.Form.Files;
-                var imagenarchivo = files[0];
-                var filePath = Path.GetTempFileName();
-
-                using (var stream = new MemoryStream())
+                if (ModelState.IsValid)
                 {
-                    await imagenarchivo.CopyToAsync(stream);
-                    project.Image = stream.ToArray();
+                    var files = Request.Form.Files;
+                    var imagenarchivo = files[0];
+                    var filePath = Path.GetTempFileName();
+
+                    using (var stream = new MemoryStream())
+                    {
+                        await imagenarchivo.CopyToAsync(stream);
+                        project.Image = stream.ToArray();
+                    }
+                    project.CreationDate = DateTime.Now;
+                    project.StatusRegister = "A";
+                    _context.Add(project);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
 
-                _context.Add(project);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ViewData["IdAccount"] = new SelectList(_context.Account, "Id", "Name", project.IdAccount);
+                ViewData["IdContry"] = new SelectList(_context.Country, "Id", "Name", project.IdContry);
+                ViewData["IdDistrict"] = new SelectList(_context.District, "Id", "Name", project.IdDistrict);
+                ViewData["IdLink"] = new SelectList(_context.Link, "Id", "Name", project.IdLink);
+                ViewData["IdParish"] = new SelectList(_context.Parish, "Id", "Name", project.IdParish);
+                ViewData["IdProvince"] = new SelectList(_context.Province, "Id", "Name", project.IdProvince);
+                ViewData["IdSector"] = new SelectList(_context.Sector, "Id", "Name", project.IdSector);
+                ViewData["ZonaId"] = new SelectList(_context.Zona, "Id", "Name", project.ZonaId);
+                return PartialView(project);
             }
-            ViewData["IdAccount"] = new SelectList(_context.Account, "Id", "Name", project.IdAccount);
-            ViewData["IdContry"] = new SelectList(_context.Country, "Id", "Name", project.IdContry);
-            ViewData["IdDistrict"] = new SelectList(_context.District, "Id", "Name", project.IdDistrict);
-            ViewData["IdLink"] = new SelectList(_context.Link, "Id", "Name", project.IdLink);
-            ViewData["IdParish"] = new SelectList(_context.Parish, "Id", "Name", project.IdParish);
-            ViewData["IdProvince"] = new SelectList(_context.Province, "Id", "Name", project.IdProvince);
-            ViewData["IdSector"] = new SelectList(_context.Sector, "Id", "Name", project.IdSector);
-            ViewData["ZonaId"] = new SelectList(_context.Zona, "Id", "Name", project.ZonaId);
-            return View(project);
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
-
+        
         public string GetImage(Int32 Id)
         {
             Project project = _context.Project.FirstOrDefault(c => c.Id == Id);

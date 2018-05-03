@@ -398,19 +398,13 @@
     <script src="~/Framework/dist/plugins/datatables/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="~/Framework/dist/plugins/datatables/jquery.dataTables.js"></script>
-    <script src="~/bower_components/Flot/jquery.flot.js"></script>
-    <script src="~/bower_components/Flot/jquery.flot.pie.js"></script>
-    <script src="~/bower_components/Flot/jquery.flot.resize.js"></script>
-    <script src="~/bower_components/plugin/jquery.sparkline.min.js"></script>
-    <script src="~/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
-    <script src="~/bower_components/jqueryui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+
     
 
 
     <environment names="Development">
         <!-- ./wrapper -->
         <!-- jQuery 3 -->
-        <script src="~/lib/jquery/dist/jquery.js"></script>
         <!-- Bootstrap 3.3.7 -->
         <script src="~/Framework/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <!-- FastClick -->
@@ -430,14 +424,19 @@
         <script src="~/Framework/dist/js/pages/dashboard2.js"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="~/Framework/dist/js/demo.js"></script>
-
+        <script src="~/Framework/dist/plugins/jquery/jquery.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <script src="~/Framework/dist/plugins/datatables/jquery.dataTables.js"></script>
-
+        <script src="~/Framework/dist/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <link href="~/Framework/dist/plugins/datatables/jquery.dataTables.css" rel="stylesheet" />
+        <script src="~/Framework/dist/plugins/datatables/jquery.dataTables.js"></script>
+        <script src="~/Framework/dist/js/adminlte.js"></script>
     </environment>
     <environment names="Staging,Production">
         <!-- ./wrapper -->
         <!-- jQuery 3 -->
+        <script src="~/Framework/dist/plugins/jquery/jquery.js"></script>
         <script src="~/Framework/bower_components/jquery/dist/jquery.min.js"></script>
         @*<script src="~/lib/jquery/dist/jquery.js"></script>*@
         <!-- Bootstrap 3.3.7 -->
@@ -462,6 +461,8 @@
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <link href="~/Framework/dist/plugins/datatables/jquery.dataTables.css" rel="stylesheet" />
         <script src="~/Framework/dist/plugins/datatables/jquery.dataTables.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/Framework/dist/js/adminlte.js"></script>
     </environment>
 
     @RenderSection("scripts", required: false)

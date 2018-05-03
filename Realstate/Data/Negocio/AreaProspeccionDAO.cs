@@ -168,5 +168,13 @@ namespace Realstate.Data.Negocio
             else { return null; }
 
         }
+
+
+        public IList<DetailTask> Getdte()
+        {
+            var _propietario = _context.DetailTasks.ToList();
+            return _propietario;
+
+        }
     }
 }

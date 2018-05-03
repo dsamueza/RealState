@@ -27,5 +27,7 @@ namespace Realstate.Models.BaseDatos
         public Predio IdPredioNavigation { get; set; }
         public StatusTask IdStatusTaskNavigation { get; set; }
         public TypeTask IdTypeTaskNavigation { get; set; }
+
+        public ICollection<DetailTask> detailtaks { get; set; }
     }
 }

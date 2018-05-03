@@ -30,7 +30,7 @@ namespace Realstate.Models.BaseDatos
         public virtual DbSet<TypeTask> TypeTask { get; set; }
         public virtual DbSet<Zona> Zona { get; set; }
         public virtual DbSet<ZonaProspectada> ZonaProspectada { get; set; }
-
+        public virtual DbSet<DetailTask> DetailTasks { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

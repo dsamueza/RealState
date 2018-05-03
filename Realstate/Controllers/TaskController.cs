@@ -36,7 +36,7 @@ namespace Realstate.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user != null)
             {
-
+                _AreaProspeccionDAO.Getdte();
                 ViewData["IdPredio"] = IdArea.ToString();
                 ViewBag.Propietario = new SelectList(_AreaProspeccionDAO.GetPropietario(), "Id", "Name");
                 ViewBag.IdPredio_unique = idPredio.ToString();

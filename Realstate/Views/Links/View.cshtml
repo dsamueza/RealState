@@ -1,5 +1,14 @@
 ﻿@model Realstate.Models.BaseDatos.Link
-   
+@{
+
+    Layout = "~/Views/Shared/_RealStateParcial.cshtml";
+}
 <div>
-    <iframe style="border: none;"  name="iframe"  width="100%" height="350px" src='@Model.Name'></iframe>
+    <iframe style="border: none;" name="iframe" width="100%" height="350px" src='@Model.Name'></iframe>
 </div>
+
+@section Scripts {
+    <script>
+        $('#loading').hide();
+    </script>
+}

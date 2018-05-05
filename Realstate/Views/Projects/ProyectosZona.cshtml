@@ -39,12 +39,17 @@
             </div>
         </div>
     </div>
+    
 </section>
+<div id="loading">
+    <img id="loading-image" src="~/images/ajax-loader.gif" alt="Cargando Datos..."  />
+</div>
 @section Scripts {
     <script>
 
-
-    function CargarVista(idProject){
+        $('#loading').hide();
+        function CargarVista(idProject) {
+            $('#loading').show();
               $.ajax({
                 type: 'POST',
                 dataType: 'html', //el tipo de dato que nos regresara el servidor en este caso regresa html
@@ -57,6 +62,7 @@
                     //cuando se ejecuta bien la funcion agregara al div vistaParcial el contenido
                     //que recibio del servidor
                     $("#contenedor").html(result);
+                    $('#loading').hide();
                 },
 
                 error: function (error) {
@@ -65,6 +71,7 @@
                 }
             });
         }
+
 
 
 

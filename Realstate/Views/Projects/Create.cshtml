@@ -109,11 +109,15 @@
 
 
 </section>
-
+<div id="loading">
+    <img id="loading-image" src="~/images/ajax-loader.gif" alt="Cargando Datos..." />
+</div>
 @section Scripts {
     <script>
+        $('#loading').hide();
         $("#selCampaigns").change(function () {
-          var id = $('#selCampaigns option:selected').val();
+            var id = $('#selCampaigns option:selected').val();
+            $('#loading').show();
           $.ajax({
                 type: 'POST',
                 dataType: 'html', //el tipo de dato que nos regresara el servidor en este caso regresa html
@@ -126,6 +130,7 @@
                     //cuando se ejecuta bien la funcion agregara al div vistaParcial el contenido
                     //que recibio del servidor
                     $("#pvistaParcial").html(result);
+                    $('#loading').hide();
                 },
 
                 error: function (error) {

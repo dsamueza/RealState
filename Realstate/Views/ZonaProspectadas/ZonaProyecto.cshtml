@@ -4,7 +4,8 @@
     Layout = "~/Views/Shared/_RealStateParcial.cshtml";
 }
 <p style="text-align:right">
-    <a asp-action="Create" class="btn btn-danger">Nueva Área</a>
+    <a href='@Url.Action("AreasProspeccion", "UrbanProperty",
+    new { idProyecto = @ViewBag.idProject})' class="btn btn-danger">Nueva Área</a>
 </p>
 <div style="height: 400px;
 top:inherit;
@@ -21,8 +22,9 @@ top:inherit;
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="col-md-4">
+
                             <div class="form-group">
-                                @Html.DisplayFor(modelItem => item.Name)
+                                <strong> NOMBRE DE ÁREA: </strong>@Html.DisplayFor(modelItem => item.Name)
                             </div>
                             <div class="form-group">
                                 <img src="@item.imagen" style="width:114px;height:58px" />
@@ -30,23 +32,29 @@ top:inherit;
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                @Html.DisplayFor(modelItem => item.CreationDate)
+                                <strong>FECHA DE CREACIÓN: </strong> @Html.DisplayFor(modelItem => item.CreationDate)
                             </div>
                             <div class="form-group">
-                                @Html.DisplayFor(modelItem => item.Zona)
+                                <strong>
+                                    TAMAÑO ÁREA:
+                                </strong> @Html.DisplayFor(modelItem => item.Zona)
+                                <strong>N° DE PREDIOS: </strong> @item.Predio.Count()
 
                             </div>
                             <div class="form-group">
-                                @Html.DisplayFor(modelItem => item.StreetMain)
-                                @Html.DisplayFor(modelItem => item.StreetSecundary)
+                                <strong>
+                                    DIRECCIÓN1:
+                                </strong> @Html.DisplayFor(modelItem => item.StreetMain)
+                                <strong>DIRECCIÓN2: </strong> @Html.DisplayFor(modelItem => item.StreetSecundary)
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                @Html.DisplayFor(modelItem => item.Usercreation)
+                                <strong>USUARIO RESPONSABLE: </strong> @Html.DisplayFor(modelItem => item.Usercreation)
                             </div>
                             <div class="form-group">
-                                <input type="button" value="IR" class="btn btn-danger" />
+                                <a href='@Url.Action("AreasProspeccion", "UrbanProperty",
+                                    new { idProyecto = @ViewBag.idProject,IdArea=item.Id})' class="btn btn-danger">IR</a>
                             </div>
                         </div>
                         @*<table border="0">

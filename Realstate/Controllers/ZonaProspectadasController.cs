@@ -28,8 +28,18 @@ namespace Realstate.Controllers
 
         public async Task<IActionResult> ZonaProyecto(int? idProject)
         {
-            var geoRentingContext = _context.ZonaProspectada.Where(x => x.IdProyecto == idProject).Include(z => z.IdProyectoNavigation);
+            var geoRentingContext = _context.ZonaProspectada.Where(x => x.IdProyecto == idProject).Include(z => z.IdProyectoNavigation).Include(z=> z.Predio);
+            ViewBag.idProject = idProject;
             return PartialView(await geoRentingContext.ToListAsync());
+        }
+        public string ContarPredio(int? idzonaprospectada)
+        {
+            var zona = _context.ZonaProspectada.Where(x => x.Id == idzonaprospectada).FirstOrDefault();
+            if (zona != null)
+            {
+                return zona.Predio.Count().ToString();
+            }
+            return "";
         }
 
         // GET: ZonaProspectadas/Details/5

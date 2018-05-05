@@ -25,9 +25,9 @@
                             <th>
                                 Código
                             </th>
-                            <th>
+                            @*<th>
 
-                            </th>
+                            </th>*@
                             <th>
                                 Nombre
                             </th>
@@ -52,11 +52,11 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Id)
                                 </td>
-                                <td>
-                                    @*@Html.DisplayFor(modelItem => item.Image)*@
+                                @*<td>
+                                   
                                     <img src="data:image;base64,@System.Convert.ToBase64String(item.Image)" width="80" height="80" />
 
-                                </td>
+                                </td>*@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Name)
                                 </td>

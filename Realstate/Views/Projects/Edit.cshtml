@@ -5,96 +5,182 @@
     Layout = "~/Views/Shared/_RealState.cshtml";
 }
 
-<h2>Edit</h2>
+<section class="content">
+    <form asp-action="Edit" enctype="multipart/form-data" method="post">
+        <div class="row col-md-6 col-lg-12  main ">
+            <!-- left column -->
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="card-title">Editar Proyecto</h3>
+                    </div>
+                    <div class="box-body">
 
-<h4>Project</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="IdAccount" class="control-label"></label>
-                <select asp-for="IdAccount" class="form-control" asp-items="ViewBag.IdAccount"></select>
-                <span asp-validation-for="IdAccount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Code" class="control-label"></label>
-                <input asp-for="Code" class="form-control" />
-                <span asp-validation-for="Code" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdContry" class="control-label"></label>
-                <select asp-for="IdContry" class="form-control" asp-items="ViewBag.IdContry"></select>
-                <span asp-validation-for="IdContry" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdProvince" class="control-label"></label>
-                <select asp-for="IdProvince" class="form-control" asp-items="ViewBag.IdProvince"></select>
-                <span asp-validation-for="IdProvince" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdDistrict" class="control-label"></label>
-                <select asp-for="IdDistrict" class="form-control" asp-items="ViewBag.IdDistrict"></select>
-                <span asp-validation-for="IdDistrict" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdParish" class="control-label"></label>
-                <select asp-for="IdParish" class="form-control" asp-items="ViewBag.IdParish"></select>
-                <span asp-validation-for="IdParish" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdSector" class="control-label"></label>
-                <select asp-for="IdSector" class="form-control" asp-items="ViewBag.IdSector"></select>
-                <span asp-validation-for="IdSector" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdLink" class="control-label"></label>
-                <select asp-for="IdLink" class="form-control" asp-items="ViewBag.IdLink"></select>
-                <span asp-validation-for="IdLink" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ZonaId" class="control-label"></label>
-                <select asp-for="ZonaId" class="form-control" asp-items="ViewBag.ZonaId"></select>
-                <span asp-validation-for="ZonaId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Image" class="control-label"></label>
-                <input asp-for="Image" class="form-control" />
-                <span asp-validation-for="Image" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreationDate" class="control-label"></label>
-                <input asp-for="CreationDate" class="form-control" />
-                <span asp-validation-for="CreationDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Usercreation" class="control-label"></label>
-                <input asp-for="Usercreation" class="form-control" />
-                <span asp-validation-for="Usercreation" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StatusRegister" class="control-label"></label>
-                <input asp-for="StatusRegister" class="form-control" />
-                <span asp-validation-for="StatusRegister" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="IdAccount" class="control-label"></label>
+                                <select asp-for="IdAccount" class="form-control" asp-items="ViewBag.IdAccount"></select>
+                                <span asp-validation-for="IdAccount" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="IdProvince" class="control-label"></label>
+                                <select asp-for="IdProvince" class="form-control" asp-items="ViewBag.IdProvince"></select>
+                                <span asp-validation-for="IdProvince" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ZonaId" class="control-label"></label>
+                                <select asp-for="ZonaId" class="form-control" asp-items="ViewBag.ZonaId"></select>
+                                <span asp-validation-for="ZonaId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="Name" class="control-label"></label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="IdDistrict" class="control-label"></label>
+                                <select asp-for="IdDistrict" class="form-control" asp-items="ViewBag.IdDistrict"></select>
+                                <span asp-validation-for="IdDistrict" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="IdSector" class="control-label"></label>
+                                <select asp-for="IdSector" class="form-control" asp-items="ViewBag.IdSector"></select>
+                                <span asp-validation-for="IdSector" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label asp-for="IdContry" class="control-label"></label>
+                                <select asp-for="IdContry" class="form-control" asp-items="ViewBag.IdContry"></select>
+                                <span asp-validation-for="IdContry" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="IdParish" class="control-label"></label>
+                                <select asp-for="IdParish" class="form-control" asp-items="ViewBag.IdParish"></select>
+                                <span asp-validation-for="IdParish" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Image" class="control-label"></label>
+                                <input asp-for="Image" type="file" class="form-control" id="inputFile" />
+                                <span asp-validation-for="Image" class="text-danger"></span>
+                            </div>
+                            <div class="form-group" style="height:350px">
+                                <div id="preview" style="height:350px">
+                                    <img src="data:image;base64,@System.Convert.ToBase64String(Model.Image)" height="350px" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="IdLink" class="control-label"></label>
+                                <select asp-for="IdLink" id="selCampaigns" class="form-control" asp-items="ViewBag.IdLink"></select>
+                                <span asp-validation-for="IdLink" class="text-danger"></span>
+                            </div>
+                            <div class="form-group" style="height:350px">
+                                <div id="pvistaParcial" style="height:350px">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <input type="submit" value="Guardar" class="btn btn-primary" />
+                                <a asp-action="Index" class="btn btn-primary">Salir</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</section>
+<div id="loading">
+    <img id="loading-image" src="~/images/ajax-loader.gif" alt="Cargando Datos..." />
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+
+        var id = $('#selCampaigns option:selected').val();
+          $.ajax({
+                type: 'POST',
+                dataType: 'html', //el tipo de dato que nos regresara el servidor en este caso regresa html
+                url: '@Url.Action("View", "Links", new { id = "id" })',
+                data: { id },
+                //URL del action result que cargara la vista parcial
+                success: function (result) {
+                // si la funcion se ejecuta lanzara un alert
+                    //alert('Success');
+                    //cuando se ejecuta bien la funcion agregara al div vistaParcial el contenido
+                    //que recibio del servidor
+                    $("#pvistaParcial").html(result);
+                    $('#loading').hide();
+
+                },
+
+                error: function (error) {
+                // si hay un error lanzara el mensaje de error
+                    alert('Fail');
+                }
+        });
+
+
+          $("#selCampaigns").change(function () {
+            $('#loading').show();
+          var id = $('#selCampaigns option:selected').val();
+          $.ajax({
+                type: 'POST',
+                dataType: 'html', //el tipo de dato que nos regresara el servidor en este caso regresa html
+                url: '@Url.Action("View", "Links", new { id = "id" })',
+                data: { id },
+                //URL del action result que cargara la vista parcial
+                success: function (result) {
+                // si la funcion se ejecuta lanzara un alert
+                    //alert('Success');
+                    //cuando se ejecuta bien la funcion agregara al div vistaParcial el contenido
+                    //que recibio del servidor
+                    $("#pvistaParcial").html(result);
+                    $('#loading').hide();
+                },
+
+                error: function (error) {
+                // si hay un error lanzara el mensaje de error
+                    alert('Fail');
+                }
+            });
+        });
+
+          document.getElementById("inputFile").onchange = function (e) {
+              let reader = new FileReader();
+
+              reader.onload = function () {
+                  let preview = document.getElementById('preview'),
+                      image = document.createElement('img');
+
+                  image.src = reader.result;
+                  image.height = 350;
+
+                  preview.innerHTML = '';
+                  preview.append(image);
+              };
+
+              reader.readAsDataURL(e.target.files[0]);
+          }
+
+    </script>
 }

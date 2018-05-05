@@ -99,13 +99,16 @@ namespace Realstate.Controllers
                 if (ModelState.IsValid)
                 {
                     var files = Request.Form.Files;
-                    var imagenarchivo = files[0];
-                    var filePath = Path.GetTempFileName();
-
-                    using (var stream = new MemoryStream())
+                    if (files.Count > 0)
                     {
-                        await imagenarchivo.CopyToAsync(stream);
-                        project.Image = stream.ToArray();
+                        var imagenarchivo = files[0];
+                        var filePath = Path.GetTempFileName();
+
+                        using (var stream = new MemoryStream())
+                        {
+                            await imagenarchivo.CopyToAsync(stream);
+                            project.Image = stream.ToArray();
+                        }
                     }
                     project.CreationDate = DateTime.Now;
                     project.StatusRegister = "A";
@@ -130,7 +133,7 @@ namespace Realstate.Controllers
             }
         }
 
-        
+
         public string GetImage(Int32 Id)
         {
             Project project = _context.Project.FirstOrDefault(c => c.Id == Id);
@@ -172,6 +175,9 @@ namespace Realstate.Controllers
             ViewData["IdProvince"] = new SelectList(_context.Province, "Id", "Name", project.IdProvince);
             ViewData["IdSector"] = new SelectList(_context.Sector, "Id", "Name", project.IdSector);
             ViewData["ZonaId"] = new SelectList(_context.Zona, "Id", "Name", project.ZonaId);
+
+            ViewBag.imagenactual = project.Image;
+
             return View(project);
         }
 
@@ -180,7 +186,7 @@ namespace Realstate.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,IdAccount,Code,Name,IdContry,IdProvince,IdDistrict,IdParish,IdSector,IdLink,ZonaId,Image,CreationDate,Usercreation,StatusRegister")] Project project)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,IdAccount,Code,Name,IdContry,IdProvince,IdDistrict,IdParish,IdSector,IdLink,ZonaId,CreationDate,Usercreation,StatusRegister")] Project project)
         {
             if (id != project.Id)
             {
@@ -191,7 +197,47 @@ namespace Realstate.Controllers
             {
                 try
                 {
-                    _context.Update(project);
+
+                    var projectactual = _context.Project.Where(m => m.Id == id).FirstOrDefault();
+
+                    var files = Request.Form.Files;
+                    if (files.Count > 0)
+                    {
+                        var imagenarchivo = files[0];
+                        var filePath = Path.GetTempFileName();
+
+                        using (var stream = new MemoryStream())
+                        {
+                            await imagenarchivo.CopyToAsync(stream);
+                            project.Image = stream.ToArray();
+                            projectactual.Image = project.Image;
+                        }
+                    }
+                    else
+                    {
+                        if (ViewBag.imagenactual != null)
+                        {
+                            project.Image = ViewBag.imagenactual;
+
+
+
+                        }
+                    }
+
+
+                    projectactual.CreationDate = DateTime.Now;
+                    projectactual.IdAccount = project.IdAccount;
+                    projectactual.Name = project.Name;
+                    projectactual.IdContry = project.IdContry;
+                    projectactual.IdProvince = project.IdProvince;
+                    projectactual.IdDistrict = project.IdDistrict;
+                    projectactual.IdParish = project.IdParish;
+                    projectactual.IdSector = project.IdSector;
+                    projectactual.IdLink = project.IdLink;
+                    projectactual.ZonaId = project.ZonaId;
+                    projectactual.Usercreation = User.Identity.Name.ToString();
+                    //projectactual.StatusRegister = project.StatusRegister;
+                    _context.Update(projectactual);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

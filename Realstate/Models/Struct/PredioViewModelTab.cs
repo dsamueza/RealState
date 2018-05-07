@@ -8,7 +8,8 @@ namespace Realstate.Models.Struct
     public class PredioViewModelTab
     {
         public int Id { get; set; }
-        public int IdZonaProspectada { get; set; }
+      public int IdZonaProspectada { get; set; }
+
         public string Name { get; set; }
     }
 }

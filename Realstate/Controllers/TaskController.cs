@@ -23,6 +23,7 @@ namespace Realstate.Controllers
         private readonly GeoRentingContext _context;
         private AreaProspeccionDAO _AreaProspeccionDAO;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private Correos _correo = new Correos();
         public TaskController(GeoRentingContext context, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
@@ -36,10 +37,11 @@ namespace Realstate.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user != null)
             {
-                _AreaProspeccionDAO.Getdte();
-                ViewData["IdPredio"] = IdArea.ToString();
+                
+                ViewData["Idareas"] = IdArea.ToString();
                 ViewBag.Propietario = new SelectList(_AreaProspeccionDAO.GetPropietario(), "Id", "Name");
                 ViewBag.IdPredio_unique = idPredio.ToString();
+           
                 var _model = IdArea > 0 ? _AreaProspeccionDAO.ObtenePrediosCamposTab(IdArea) : null;
                 return View(_model);
             }
@@ -53,11 +55,68 @@ namespace Realstate.Controllers
         }
 
         // GET: Task/Create
-        public ActionResult Create()
+        [HttpPost]
+    
+        public async Task<JsonResult> _Note(String coment , String Idpredio )
         {
-            return View();
-        }
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                if (ModelState.IsValid)
+                {
 
+                  var id=  _AreaProspeccionDAO.GuardarAreas_task(coment, int.Parse(Idpredio), "", "", 1, "", user.UserName);
+
+                  var model=  _AreaProspeccionDAO.ObtenerTareasbyId(id);
+                    //   _correo.enviar();
+                    JSonConvertUtil.Convert(model);
+                    return Json(model);
+                }
+                return Json("");
+            }
+            return Json("");
+        }
+        [HttpPost]
+
+        public async Task<JsonResult>  _Message (String coment , String subject , String des, String Idpredio)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                if (ModelState.IsValid)
+                {
+
+                    var id = _AreaProspeccionDAO.GuardarAreas_task(coment, int.Parse(Idpredio), des, subject, 2, "", user.UserName);
+                    var model = _AreaProspeccionDAO.ObtenerTareasbyId(id);
+                      _correo.enviar(subject,des,coment);
+                    JSonConvertUtil.Convert(model);
+                    return Json(model);
+                }
+                return Json("");
+            }
+            return Json("");
+        }
+        [HttpPost]
+
+        public async Task<JsonResult> _interaction(String coment, String subject, String reunion, String Idpredio)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                if (ModelState.IsValid)
+                {
+
+                    var id = _AreaProspeccionDAO.GuardarAreas_task(coment, int.Parse(Idpredio), reunion, subject, 4, "", user.UserName);
+                    var model = _AreaProspeccionDAO.ObtenerTareasbyId(id);
+                    JSonConvertUtil.Convert(model);
+                    return Json(model);
+                }
+              
+                return Json("");
+            }
+   
+            return Json("");
+        }
         [HttpGet]
         public JsonResult GetPredio(String idPredio)
         {
@@ -74,50 +133,29 @@ namespace Realstate.Controllers
                 return null;
             }
         }
-        // GET: Task/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
 
-        // POST: Task/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        [HttpGet]
+        public JsonResult GetDetailTask(String idPredio)
         {
             try
             {
-                // TODO: Add update logic here
+                var model = _AreaProspeccionDAO.ObtenerTareas(int.Parse(idPredio));
+                if (model.Count() > 0)
+                {
+           
+                    JSonConvertUtil.Convert(model);
 
-                return RedirectToAction(nameof(Index));
+                    return Json(model);
+                }
+           
+                return Json("-1");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                var model = _AreaProspeccionDAO.ObtenerTareasini(5);
+                return Json(model);
             }
         }
 
-        // GET: Task/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Task/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

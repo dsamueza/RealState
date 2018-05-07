@@ -15,20 +15,25 @@ namespace Realstate.Models.BaseDatos
         [DisplayName("Proyecto")]
         public int? IdProyecto { get; set; }
         [DisplayName("Código")]
+        [Required]
         public string Code { get; set; }
         [DisplayName("Nombre del Área")]
         public string Name { get; set; }
-        [DisplayName("Calle Principal")]
+        [Required]
+        [DisplayName("Calle N° 1")]
         public string StreetMain { get; set; }
-        [DisplayName("Calle Secundaria")]
+        [Required]
+        [DisplayName("Calle N° 2")]
         public string StreetSecundary { get; set; }
-
+        [DisplayName("Calle N° 3")]
         public string Streetthree { get; set; }
-
+        [DisplayName("Calle N° 4")]
         public string Streetfour { get; set; }
         [DisplayName("Referencia")]
+        [Required]
         public string Reference { get; set; }
-        [DisplayName("Zona")]
+        [DisplayName("Área m²")]
+
         public string Zona { get; set; }
         [DisplayName("Comentario")]
         public string Commentary { get; set; }

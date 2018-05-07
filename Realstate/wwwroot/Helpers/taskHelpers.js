@@ -1,5 +1,5 @@
 ﻿//var vueVM;
-var apps
+var apps,vuetask
 var IdJsonPredido
 
 
@@ -21,6 +21,7 @@ function bindPredioID(Id) {
                 ApplyBindingPredioUnique(data);
                // geo(parseFloat(data[0].latitude.trim()), parseFloat(data[0].length.trim()));
                 geo(-0.1559192, -78.4769077);
+                bindtaskID(data[0].id)
                 $.unblockUI();
             } else {
                 alert("Error! no se ha encontrado El predio" + error);
@@ -35,8 +36,45 @@ function bindPredioID(Id) {
     });
 
 }
+
+
+function bindtaskID(Id) {
+    
+    IdJsonPredido = Id
+
+
+    $.ajax({
+        type: "GET",
+        url: "/task/GetDetailTask",
+        // async: false,
+        data: {
+            idPredio: IdJsonPredido
+        },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            if (data) {
+         
+                // geo(parseFloat(data[0].latitude.trim()), parseFloat(data[0].length.trim()));
+ 
+                ApplyBindingTask(data);
+              
+            } else {
+                alert("Error! no se ha encontrado task null" + error);
+            
+            }
+        },
+        error: function (error) {
+            console.log(error);
+            alert("Error! no se ha encontrado El task" + error);
+       
+        }
+    });
+
+}
+
 function ApplyBindingPredioUnique(_model) {
-  
+    
     apps = new Vue({
         el: '#PredioTask',
     
@@ -60,10 +98,8 @@ function ApplyBindingPredioUnique(_model) {
                     separador = ",", // un espacio en blanco
                     limite = 2,
                     arregloDeSubCadenas = cadena.split(separador, limite)
-
                 this.predios[index].latitude = arregloDeSubCadenas[0].trim()
                 this.predios[index].length = arregloDeSubCadenas[1].trim()
-
                 geo(index, parseFloat(arregloDeSubCadenas[0].trim()), parseFloat(arregloDeSubCadenas[1].trim()))
 
             },
@@ -123,6 +159,43 @@ function ApplyBindingPredioUnique(_model) {
 
 }
 
+function ApplyBindingTask(_modeltask) {
+ 
+    vuetask = new Vue({
+        el: '#DetailTask',
+
+        data: {
+            tasks: _modeltask,
+            coment_note:''},
+        methods: {
+            moment: function (e) {
+                return moment(e);
+            },
+            time: function (e,e1) {
+                var d = new Date(e);
+                var d1 = new Date(e1);
+                var diff = d1 - d
+                console.log(d1)
+                console.log(d)
+                console.log(diff/60000)
+                return (diff / 60000) +' minutos';
+            },
+            addlist(_model) {
+                this.tasks.push(_model)
+            },
+        },
+        computed: {
+            // Metódo que faz o sort das colunas, definindo o nome da coluna e a ordem
+            orderedUsers: function () {
+                  return _.orderBy(this.tasks, 'id','desc')
+            }
+        }
+    })
+
+}
+
+
+
 var panorama;
 var fenway
 
@@ -146,5 +219,145 @@ function initialize() {
         });
 
     map.setStreetView(panorama);
+
+}
+
+
+
+
+function SaveNotaAJAX(Id, idarea,area) {
+
+    IdJsonPredido = Id
+    IdJsonArea = idarea
+
+    $.ajax({
+        type: "post",
+        url: "/task/_Note",
+        // async: false,
+        data: {
+            coment: area,
+            Idpredio: IdJsonPredido.toString()
+        },
+        success: function (data) {
+            if (data) {
+
+                // geo(parseFloat(data[0].latitude.trim()), parseFloat(data[0].length.trim()));
+                vuetask.addlist(data[0])
+                CKEDITOR.instances['coment_note'].setData('');;
+                $.toaster({
+                    priority: 'success',
+                    title: 'Aviso',
+                    message: "La nota fue creada",
+                    settings: {
+                        timeout: 5500
+                    }
+                });
+
+            } else {
+                alert("Error! no se ha encontrado task " + error);
+                return ''
+
+            }
+        },
+        error: function (error) {
+            console.log(error);
+            alert("Error! no se ha encontrado El task" + error);
+
+        }
+    });
+
+}
+
+
+
+function SaveMailAJAX(Id, asunto,destinatario,msg) {
+
+    IdJsonPredido = Id
+  
+
+    $.ajax({
+        type: "post",
+        url: "/task/_Message",
+        
+        // async: false,
+        data: {
+            coment: msg,
+            subject: asunto,
+            des: destinatario,
+            Idpredio: IdJsonPredido.toString()
+        },
+        success: function (data) {
+            if (data) {
+
+                // geo(parseFloat(data[0].latitude.trim()), parseFloat(data[0].length.trim()));
+                vuetask.addlist(data[0])
+                CKEDITOR.instances['coment_note'].setData('');;
+                $.toaster({
+                    priority: 'success',
+                    title: 'Aviso',
+                    message: "El mail  fue enviado",
+                    settings: {
+                        timeout: 5500
+                    }
+                });
+
+            } else {
+                alert("Error! no se ha encontrado task " + error);
+                return ''
+
+            }
+        },
+        error: function (error) {
+            console.log(error);
+            alert("Error! no se ha encontrado El task" + error);
+
+        }
+    });
+
+}
+
+function SaveReunionAJAX(Id, asunto,tiempo, msg) {
+
+    IdJsonPredido = Id
+
+
+    $.ajax({
+        type: "post",
+        url: "/task/_interaction",
+
+        // async: false,
+        data: {
+            coment: msg,
+            subject: asunto,
+            reunion: tiempo,
+            Idpredio: IdJsonPredido.toString()
+        },
+        success: function (data) {
+            if (data) {
+
+                // geo(parseFloat(data[0].latitude.trim()), parseFloat(data[0].length.trim()));
+                vuetask.addlist(data[0])
+                CKEDITOR.instances['coment_note'].setData('');;
+                $.toaster({
+                    priority: 'success',
+                    title: 'Aviso',
+                    message: "La reunion fue registrada",
+                    settings: {
+                        timeout: 5500
+                    }
+                });
+
+            } else {
+                alert("Error! no se ha encontrado task " + error);
+                return ''
+
+            }
+        },
+        error: function (error) {
+            console.log(error);
+            alert("Error! no se ha encontrado El task" + error);
+
+        }
+    });
 
 }

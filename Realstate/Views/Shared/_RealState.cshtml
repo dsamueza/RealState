@@ -23,11 +23,11 @@
         <link rel="stylesheet" href="~/Framework/bower_components/jvectormap/jquery-jvectormap.css">
 
         <link href="~/Framework/dist/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
-      
+
 
         <!-- Theme style -->
         <link rel="stylesheet" href="~/Framework/dist/css/AdminLTE.min.css">
-        
+
         <!-- AdminLTE Skins. Choose a skin from the css/skins
     folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="~/Framework/dist/css/skins/_all-skins.min.css">
@@ -43,6 +43,10 @@
               href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
         <link href="~/css/site.css" rel="stylesheet" />
         <link href="~/Framework/bower_components/select2/dist/css/select2.css" rel="stylesheet" />
+        <script src="~/Framework/bower_components/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+        <!-- bootstrap datepicker -->
+        <link rel="stylesheet" href="~/Framework/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+        <link rel="stylesheet" href="~/Framework/bower_components/bootstrap-daterangepicker/daterangepicker.css">
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="~/Framework/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -54,6 +58,7 @@
         <link rel="stylesheet" href="~/Framework/bower_components/jvectormap/jquery-jvectormap.css">
         <!-- Theme style -->
         <link rel="stylesheet" href="~/Framework/dist/css/AdminLTE.min.css">
+
         <!-- AdminLTE Skins. Choose a skin from the css/skins
     folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="~/Framework/dist/css/skins/_all-skins.min.css">
@@ -71,6 +76,8 @@
 
 
         <link href="~/Framework/bower_components/select2/dist/css/select2.css" rel="stylesheet" />
+        <link rel="stylesheet" href="~/Framework/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+        <link rel="stylesheet" href="~/Framework/bower_components/bootstrap-daterangepicker/daterangepicker.css">
     </environment>
 </head>
 <body class="hold-transition skin-blue sidebar-collapse  sidebar-mini fixed" >
@@ -441,13 +448,18 @@
         @*<script src="~/Framework/dist/js/pages/dashboard2.js"></script>*@
         <!-- AdminLTE for demo purposes -->
         <script src="~/Framework/dist/js/demo.js"></script>
-
+        <script src="~/Framework/bower_components/moment/min/moment.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="~/js/vue2-filters.min.js"></script>
         <script src="~/Framework/dist/plugins/datatables/jquery.dataTables.js"></script>
         <script src="~/lib/knockout/knockout.js"></script>
         <script src="~/Framework/plugins/BlockUI/BlockUI.js"></script>
         <script src="~/Framework/bower_components/select2/dist/js/select2.js"></script>
         <script src="~/Framework/bower_components/bootstrap/js/bootbox.js"></script>
+        <script src="~/Framework/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+        <script src="~/Framework/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+        <script src="~/js/orderBy.js"></script>
     </environment>
     <environment names="Staging,Production">
         <!-- ./wrapper -->
@@ -472,13 +484,17 @@
         @*<script src="~/Framework/dist/js/pages/dashboard2.js"></script>*@
         <!-- AdminLTE for demo purposes -->
         <script src="~/Framework/dist/js/demo.js"></script>
-
+        <script src="~/Framework/bower_components/moment/min/moment.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="~/js/vue2-filters.min.js"></script>
         <script src="~/Framework/dist/plugins/datatables/jquery.dataTables.js"></script>
         <script src="~/lib/knockout/knockout.js"></script>
         <script src="~/Framework/plugins/BlockUI/BlockUI.js"></script>
         <script src="~/Framework/bower_components/select2/dist/js/select2.js"></script>
         <script src="~/Framework/bower_components/bootstrap/js/bootbox.js"></script>
+        <script src="~/Framework/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+        <script src="~/Framework/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+        <script src="~/js/orderBy.js"></script>
     </environment>
 
     @RenderSection("scripts", required: false)

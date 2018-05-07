@@ -107,11 +107,13 @@
                             <div class="col-md-4 ">
                                 <div class="form-group-inline">
                                     <div v-if="!predio.image">
+                                       
                                         <label class="btn btn-block btn-warning">
                                             Seleccionar… <input type="file" style="display: none;" v-on:change="onFileChange($event,index)">
                                         </label>
 
                                     </div><div v-else>
+                                    <label> Imagen Predio {{index+1}}.jpg </label>
                                         <img :src="predio.image" class="img-thumbnail mardis-predio-img" />
                                         @*<button class="btn btn-success">Quitar Imagen</button>*@
                                         <button type="button" class="btn btn-default btn-flat pull-right" v-on:click="removeImage(index)" style="margin-top:5px;margin-bottom:5px;">
@@ -124,10 +126,10 @@
 
                             <div class="col-md-8">
                                 <div class="form-group-inline">
+                                    <label class="col-md-12 pull-left"> Mapas de Geolocalización </label>
+                                    <div v-bind:id="map(index)" class="col-md-6 img-thumbnail" style="width:50%; height:400px;"></div>
+                                    <div v-bind:id="street(index)" class="col-md-6 img-thumbnail" style="width:50%; height:400px;"></div>
 
-                                    <div v-bind:id="map(index)" class="col-md-6" style="width:50%; height:400px;"></div>
-                                    <div v-bind:id="street(index)" class="col-md-6" style="width:50%; height:400px;"></div>
-                                  
                                 </div>
                             </div>
 
@@ -139,12 +141,20 @@
 
             </div>
          
-                <div class="box-footer text-center">
-                    <a href="javascript:void(0)" class="uppercase">Ir a Tareas</a>
+            <div class="box-footer text-center">
+                <div class="col-md-1 pull-left">
+                    <button type="button" class=" btn btn-block btn-danger btn-flat " v-on:click="addRemove(index)" style="margin-right: 5px;">
+                        <i class="fa fa-trash-o"></i> Quitar
+                    </button>
+                </div>
+                <div class="col-md-2    pull-right">
+
+                    <a v-bind:href="'../Task/Index?IdArea=' + predio.idZonaProspectada +'&idPredio='+predio.id" class="uppercase ">Ir a Tareas</a>
+                </div>
                 </div>
 
-          
-        </div>
+
+            </div>
 
     </div>
     @*<input type="button" value="Create" class="btn btn-primary pull-right" />

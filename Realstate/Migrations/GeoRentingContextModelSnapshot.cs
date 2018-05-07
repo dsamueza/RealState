@@ -597,7 +597,9 @@ namespace Realstate.Migrations
 
             modelBuilder.Entity("Realstate.Models.BaseDatos.Task", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                    .ValueGeneratedOnAdd();
+                
 
                     b.Property<string>("AggregateUri")
                         .HasMaxLength(100)

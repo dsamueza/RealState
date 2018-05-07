@@ -170,11 +170,169 @@ namespace Realstate.Data.Negocio
         }
 
 
-        public IList<DetailTask> Getdte()
+        public IList<TaskViewModel> ObtenerTareas(int id)
         {
-            var _propietario = _context.DetailTasks.ToList();
-            return _propietario;
+            var _tasks = _context.Task
+                               .Include(x => x.detailtaks)
+                               .Where(z => z.IdPredio.Equals(id)).ToList();
+
+            Mapper.Reset();
+            if (_tasks.Count() > 0)
+            {
+                Mapper.Initialize(cfg =>
+                {
+                    cfg.CreateMap<Realstate.Models.BaseDatos.Task, TaskViewModel>();
+                });
+
+                var _model = Mapper.Map<List<TaskViewModel>>(_tasks.ToList());
+                return _model;
+            }
+            return null;
 
         }
+
+        public IList<TaskViewModel> ObtenerTareasini(int id)
+        {
+            var _tasks = _context.Task
+                               .Include(x => x.detailtaks)
+                               .Where(z => z.IdTypeTask.Equals(id)).ToList();
+
+            Mapper.Reset();
+            if (_tasks.Count() > 0)
+            {
+                Mapper.Initialize(cfg =>
+                {
+                    cfg.CreateMap<Realstate.Models.BaseDatos.Task, TaskViewModel>();
+                });
+
+                var _model = Mapper.Map<List<TaskViewModel>>(_tasks.ToList());
+                return _model;
+            }
+            return null;
+
+        }
+        public IList<TaskViewModel> ObtenerTareasbyId(int id)
+        {
+            var _tasks = _context.Task
+                               .Include(x => x.detailtaks)
+                               .Where(z => z.Id.Equals(id)).ToList();
+
+            Mapper.Reset();
+            if (_tasks.Count() > 0)
+            {
+                Mapper.Initialize(cfg =>
+                {
+                    cfg.CreateMap<Realstate.Models.BaseDatos.Task, TaskViewModel>();
+                });
+
+                var _model = Mapper.Map<List<TaskViewModel>>(_tasks.ToList());
+                return _model;
+            }
+            return null;
+
+        }
+        public int GuardarAreas_task(string coment , int idpredio , String destinatario, String asunto, int tipo, string adjunto, string usuario)
+        {
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+
+                Realstate.Models.BaseDatos.Task _task = new Realstate.Models.BaseDatos.Task();
+                _task.IdPredio=idpredio;
+                _task.IdAccount = 3;
+                _task.IdStatusTask = 1;
+                _task.Usercreation = usuario;
+                _task.IdTypeTask = tipo;
+                _task.StartDate = DateTime.Now;
+                _task.DateModification = DateTime.Now;
+                _task.DateCreation = DateTime.Now;
+                _task.DateValidation = DateTime.Now;
+                _task.DateValidation = DateTime.Now;
+                _task.StatusRegister = "A";
+                _context.Add(_task);
+                _context.Entry(_task).State = EntityState.Added;
+
+                var get = _context.SaveChanges();
+                if (_task.IdTypeTask == 1) { 
+                   DetailTask _taskDetail = new DetailTask();
+
+                _taskDetail.coment = coment;
+                _taskDetail.attached = adjunto;
+                _taskDetail.creation_date= DateTime.Now;
+                _taskDetail.creation_meeting= DateTime.Now;
+                _taskDetail.ENDMeting = DateTime.Now;
+                _taskDetail.IdTask = _task.Id;
+                _context.Add(_taskDetail);
+                _context.Entry(_taskDetail).State = EntityState.Added;
+                 get = _context.SaveChanges();
+                    }
+                if (_task.IdTypeTask == 2)
+                {
+
+                    DetailTask _taskDetail = new DetailTask();
+
+                    _taskDetail.coment = coment;
+                    _taskDetail.attached = adjunto;
+                    _taskDetail.creation_date = DateTime.Now;
+                    _taskDetail.creation_meeting = DateTime.Now;
+                    _taskDetail.ENDMeting = DateTime.Now;
+                    _taskDetail.IdTask = _task.Id;
+                    _taskDetail.subjects = asunto;
+                    _taskDetail.addressee = destinatario;
+                    _context.Add(_taskDetail);
+                    _context.Entry(_taskDetail).State = EntityState.Added;
+                    get = _context.SaveChanges();
+                }
+
+                if (_task.IdTypeTask == 4)
+                {
+
+                    DetailTask _taskDetail = new DetailTask();
+                    
+
+                    string[] separadas;
+
+                    separadas = destinatario.Split('-');
+
+
+                    _taskDetail.coment = coment;
+                    _taskDetail.attached = adjunto;
+                    _taskDetail.creation_date = DateTime.Now;
+                    _taskDetail.creation_meeting = Convert.ToDateTime(separadas[0].Trim());
+                    _taskDetail.ENDMeting = Convert.ToDateTime( separadas[1].Trim());
+                    _taskDetail.IdTask = _task.Id;
+                    _taskDetail.subjects = asunto;
+                   
+                    _context.Add(_taskDetail);
+                    _context.Entry(_taskDetail).State = EntityState.Added;
+                    get = _context.SaveChanges();
+                }
+                transaction.Commit();
+                return _task.Id;
+            }
+           
+        }
+        public int deletePredidios(int AreaProspeccion)
+        {
+
+            int get = -1;
+            try
+            {
+                var _task = _context.Task.Where(x => x.IdPredio.Equals(AreaProspeccion)).Count();
+                if (_task == 0)
+                {
+                    var _predio = _context.Predio.SingleOrDefault(m => m.Id == AreaProspeccion);
+                    _context.Predio.Remove(_predio);
+                    return 1;
+                }
+                
+            }
+            catch (Exception)
+            {
+
+                return 0;
+            }
+            return get;
+        }
+
     }
 }

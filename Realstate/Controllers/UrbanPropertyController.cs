@@ -87,7 +87,14 @@ namespace Realstate.Controllers
             _AreaProspeccionDAO.GuardarPredidios(_model, user.UserName,int.Parse(IdArea));
             return Json("");
         }
+        [HttpPost]
+        public async Task<JsonResult> deletePredios(String IdPredio)
+        {
+            var user = await _userManager.GetUserAsync(User);
 
+         var variable=   _AreaProspeccionDAO.deletePredidios(int.Parse(IdPredio));
+            return Json(variable);
+        }
 
         [HttpGet]
         public JsonResult GetGetPredio(String idPredio)

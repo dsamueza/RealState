@@ -1,68 +1,116 @@
-﻿<div id="timeline">
-    <!-- The timeline -->
+﻿<div id="DetailTask">
+    <div id="timeline" v-if="tasks !='-1' ">
+        <!-- The timeline -->
+        <div v-for="(task_vue, x) in orderedUsers  "> 
+            <div v-if="task_vue!='null'">
+                <ul class="timeline timeline-inverse box" v-if="task_vue.idTypeTask==1">
+                    <!-- timeline time label -->
+                    <li class="box-header  time-label">
 
-    <ul v-for="(task, x) in poll.Branches.TaskCampaigns" class="timeline timeline-inverse box">
-        <!-- timeline time label -->
-        <li class="box-header  time-label">
+                        <button type="button" class="btn btn-box-tool btn bg-olive btn-flat" data-widget="collapse">
+                            {{moment(task_vue.DateModification).format('LT')}}
+                        </button>
+                    </li>
+                    <!-- /.timeline-label -->
+                    <!-- timeline item -->
 
-            <button type="button" class="btn btn-box-tool btn bg-olive btn-flat" data-widget="collapse">
-             dsadas
-            </button>
-        </li>
-        <!-- /.timeline-label -->
-        <!-- timeline item -->
+                    <li class="box-body">
 
-        <li class="box-body">
+                        <i class="fa fa-sticky-note bg-blue"></i>
+                        <div class="timeline-item" style="border-radius:0px !important">
 
-            <i class="fa fa-tasks bg-blue"></i>
-            <div class="timeline-item" style="border-radius:0px !important">
+                            <span class="time"><i class="fa fa-clock-o"></i>   {{moment(task_vue.DateModification).format('LT')}}</span>
+                            <h3 class="timeline-header"><a href="#">Notas del Predio</a> </h3>
+                            <div class="timeline-body">
+                                <div class=" invoice-col">
+                                    <br>
+                                    <p v-html="task_vue.detailtaks[0].coment"></p>
+                                </div>
 
-                <span class="time"><i class="fa fa-clock-o"></i>  dsada</span>
-                <h3 class="timeline-header"><a href="#">Tarea :</a>  dsdsa</h3>
-                <div class="timeline-body">
-                    <div class=" invoice-col">
+                            </div>
+                            <div class="timeline-footer pull-right ">
+                            </div>
+                        </div>
+                    </li>
 
-                        <br>
-                        <b>Ruta:</b> dasdsa<br>
-                        <b>Campana:</b> dasdsa<br>
-                        <b>Descripcion:</b> saddas
-                    </div>
+                </ul>
 
-                </div>
-                <div class="timeline-footer pull-right ">
+                <!---Correos--->
+                <ul class="timeline timeline-inverse box" v-if="task_vue.idTypeTask==2">
+                    <!-- timeline time label -->
+                    <li class="box-header  time-label">
 
-                    <a v-bind:href="'../Campaign/TaskPoll?idTask='+ task.Id" class="btn btn-app btn-xs">
-                        <i class="fa fa-tasks"></i> Tarea
-                    </a>
-                    <a v-bind:href="'../Branch/Profile?idBranch='+ task.IdBranch" class="btn btn-app btn-xs">
-                        <i class="fa fa-user"></i> local
+                        <button type="button" class="btn btn-box-tool btn bg-aqua btn-flat" data-widget="collapse">
+                            {{moment(task_vue.DateModification).format('LT')}}
+                        </button>
+                    </li>
+                    <!-- /.timeline-label -->
+                    <!-- timeline item -->
 
-                    </a>
+                    <li class="box-body">
 
-                    @*<a v-bind:href="'../Campaign/TaskPoll?idTask='+ task.Id" class="btn btn-google btn-flat btn-xs">Ver Tarea</a>
-                        <a v-bind:href="'../Branch/Profile?idBranch='+ task.IdBranch" class="btn btn-linkedin btn-flat btn-xs">Ir a local</a>*@
+                        <i class="fa fa-envelope bg-maroon"></i>
+                        <div class="timeline-item" style="border-radius:0px !important">
 
-                </div>
+                            <span class="time"><i class="fa fa-clock-o"></i>   {{moment(task_vue.DateModification).format('LT')}}</span>
+                            <h3 class="timeline-header"><a href="#">Destinatario :</a>  {{task_vue.detailtaks[0].addressee}}</h3>
+                            <div class="timeline-body">
+                                <div class=" invoice-col">
+                                    <b>{{task_vue.detailtaks[0].subjects}}</b> <br>
+                                    <p v-html="task_vue.detailtaks[0].coment"></p>
+                                </div>
+
+                            </div>
+                            <div class="timeline-footer pull-right ">
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+
+
+
+                <!---Reunion--->
+                <ul class="timeline timeline-inverse box" v-if="task_vue.idTypeTask==4">
+                    <!-- timeline time label -->
+                    <li class="box-header  time-label">
+
+                        <button type="button" class="btn btn-box-tool btn bg-aqua btn-flat" data-widget="collapse">
+                            {{moment(task_vue.DateModification).format('LT')}}
+                        </button>
+                    </li>
+                    <!-- /.timeline-label -->
+                    <!-- timeline item -->
+
+                    <li class="box-body">
+
+                        <i class="fa fa-calendar bg-red"></i>
+                        <div class="timeline-item" style="border-radius:0px !important">
+
+                            <span class="time"><i class="fa fa-clock-o"></i>   {{moment(task_vue.DateModification).format('LT')}}</span>
+                            <h3 class="timeline-header"><a href="#">Reunión</a>  {{task_vue.detailtaks[0].addressee}}</h3>
+                            <div class="timeline-body">
+                                <div class=" invoice-col">
+                                    <b>{{task_vue.detailtaks[0].subjects}}</b> <br>
+                                    <p >{{task_vue.detailtaks[0].coment}}></p>
+                                    <b>Fecha programada:</b>{{moment(task_vue.detailtaks[0].creation_meeting).format('L')}} <br />
+                                    <b>Tiempo estimado :</b>{{time(task_vue.detailtaks[0].creation_meeting,task_vue.detailtaks[0].endMeting)}}
+                                </div>
+
+                            </div>
+                            <div class="timeline-footer pull-right ">
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
             </div>
-        </li>
-
-        <li class="box-body" v-if="poll.Branches.BranchImages!='0'">
-
-            <i class="fa fa-camera bg-purple"></i>
-
-            <div class="timeline-item" style="border-radius:0px !important">
-
-                <h3 class="timeline-header"><a href="#">Fotos</a>  </h3>
-                <div class="timeline-body" style="display: -webkit-inline-box;">
-
-                    @*<img alt="..." v-for="(fotos, imgs) in poll.Branches.BranchImages" v-bind:src="fotos.UrlImage" v-on:click="[openModal(), currentSlide(imgs + 1)]" v-if="fotos.IdCampaign==task.IdCampaign" class="margin " style="width:150px; height:100px;">*@
 
 
-                </div>
-            </div>
+        </div>
+       
 
-        </li>
+    </div>
 
-    </ul>
 
 </div>

@@ -500,7 +500,7 @@ namespace Realstate.Models.BaseDatos
             {
                 entity.ToTable("Task", "RentingCore");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+              
 
                 entity.Property(e => e.AggregateUri)
                     .HasMaxLength(100)
@@ -524,7 +524,7 @@ namespace Realstate.Models.BaseDatos
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.IdStatusTask).ValueGeneratedOnAdd();
+                entity.Property(e => e.IdStatusTask);
 
                 entity.Property(e => e.Route)
                     .HasMaxLength(50)
@@ -557,7 +557,44 @@ namespace Realstate.Models.BaseDatos
                     .HasForeignKey(d => d.IdTypeTask)
                     .HasConstraintName("FK_Task_TypeTask");
             });
+            /*-------------*/
+            modelBuilder.Entity<DetailTask>(entity =>
+            {
+                entity.ToTable("DetailTask", "RentingCore");
 
+
+                entity.Property(e => e.addressee)
+                  .IsRequired()
+                  .HasMaxLength(250)
+                  .IsUnicode(false);
+
+
+
+                entity.Property(e => e.coment)
+                  .IsRequired()
+                  .HasMaxLength(250)
+                  .IsUnicode(false);
+
+
+                entity.Property(e => e.attached)
+                  .IsRequired()
+                  .HasMaxLength(250)
+                  .IsUnicode(false);
+
+                entity.Property(e => e.subjects)
+                .IsRequired()
+                .HasMaxLength(500)
+                .IsUnicode(false);
+                entity.Property(e => e.creation_date).HasColumnType("datetime");
+                entity.Property(e => e.creation_meeting).HasColumnType("datetime");
+                entity.Property(e => e.ENDMeting).HasColumnType("datetime");
+
+                entity.HasOne(d => d.task)
+                    .WithMany(p => p.detailtaks)
+                    .HasForeignKey(d => d.IdTask)
+                    .HasConstraintName("PK__DetailTa__3214EC0701D0E373");
+            });
+            /*--------------*/
             modelBuilder.Entity<TypeTask>(entity =>
             {
                 entity.ToTable("TypeTask", "RentingCommon");

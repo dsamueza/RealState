@@ -2,44 +2,7 @@
 //var vueVM;
 var app
 var IdJsonPredido
-//function ApplyBindingTPredio(data) {
-//    vueVM = new Vue({
-//        el: "#divPoll",
-//        data: {
-//            poll: data
-//        },
-//        methods: {
-//            keymonitor: function (event) {
-//                var charCode = (event.which) ? event.which : event.keyCode
-//                if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-//                    return false;
-//                }
-//                console.log(charCode);
-//                return true;
-//            },
-//            changeHandler: function (event) {
-//                // change of userinput, do something
-//                alert(event.id);
-//            },
-//            moment: function () {
-//                return moment();
-//            },
-//            openModal: function () {
-//                return openModal();
-//            },
-//            currentSlide: function (data) {
-//                return currentSlide(data);
-//            },
-//            Save: function () {
-//                return Save();
-//            }
-//        }
-//    });
 
-
-
-//    $.unblockUI();
-//}
 
 
 function bindPredio(Id) {
@@ -76,24 +39,6 @@ function ApplyBindingPredio(_model) {
 
     app = new Vue({
         el: '#lote',
-        //data: {
-        //    predios: [
-        //        {
-        //            IdProyecto: 0,
-        //            IdPredio: 0,
-        //            Secuencial: 0,
-        //            Nombre: '',
-        //            Zona:'',
-        //            Dimension: '',
-        //            latitud: '',
-        //            longitud: '',
-        //            Propietario: '',
-        //            Estado:'',
-        //            imagen:''}
-
-
-        //    ]
-        //},
         data: { predios: _model },
     methods: {
         street: function (e) {
@@ -147,11 +92,7 @@ function ApplyBindingPredio(_model) {
             var coordenadas = panorama[e].getPosition() + '';
             var coord1 = coordenadas.replace("(", "")
             var coord2 = coord1.replace(")", "")
-            bootbox.alert({
-                title:"Coordenadas",
-                message: coord2 ,
-                backdrop: true
-            });
+            this.predios[e].coordenas= coord2
         },
         addPredio: function () {
             this.predios.push({
@@ -171,6 +112,15 @@ function ApplyBindingPredio(_model) {
 
             })
 
+
+
+        },
+        addRemove: function (index) {
+          
+            deletePredio(this.predios[index].id, index)
+        }, removedata: function (index) {
+
+            this.predios.splice(index, 1);
         }
     }
     })
@@ -178,16 +128,50 @@ function ApplyBindingPredio(_model) {
 }
 function Save() {
 
-    $.blockUI({ message: "cargando..." });
+    $.blockUI({ message: "Guardando..." });
 
     $.ajax({
         url: "/UrbanProperty/GuardarPredios",
         type: "post",
         data: {
             ModelJson: ko.toJSON(app.$data.predios),
-             IdArea: IdJsonPredido
+            IdArea: IdJsonPredido
+          
         },
         success: function (data) {
+        
+            $.unblockUI();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            $.unblockUI();
+        }
+    });
+
+
+}
+
+function deletePredio(id,index) {
+
+    $.blockUI({ message: "Eliminando..." });
+
+    $.ajax({
+        url: "/UrbanProperty/deletePredios",
+        type: "post",
+        data: {
+            
+            IdPredio: id
+
+        },
+        success: function (data) {
+
+            if (data == '1') {
+                bootbox.alert("Predio Eliminado")
+                app.removedata(index);
+            }
+
+            if (data == '-1') {
+                bootbox.alert("Predio tiene tareas creadas")
+            }
             $.unblockUI();
         },
         error: function (xhr, ajaxOptions, thrownError) {

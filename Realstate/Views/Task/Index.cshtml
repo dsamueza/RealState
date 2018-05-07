@@ -4,6 +4,10 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_RealState.cshtml";
 }
+@{
+    var Idarea = (string)ViewData["Idareas"];
+}
+
 <h1>
     Areas de Prospección
 </h1>
@@ -36,22 +40,14 @@
 </ul>
 
 
-<section class="content-header">
-
-
-    @*<ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="#">Examples</a></li>
-            <li class="active">User profile</li>
-        </ol>*@
-</section>
+<section class="content-header"></section>
 
 <section class="content">
     <div class="row">
         <div class="col-md-3">
-          
-                    @await Html.PartialAsync("_DataArea")
-             
+
+            @await Html.PartialAsync("_DataArea")
+
 
         </div>
 
@@ -60,7 +56,7 @@
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs  ">
                     <li class="active"><a href="#mail" data-toggle="tab">Correo</a></li>
-                    <li><a href="#timeline" data-toggle="tab">Reunión</a></li>
+                    <li><a href="#reunion" data-toggle="tab">Reunión</a></li>
                     <li><a href="#note" data-toggle="tab">Notas</a></li>
                     <li><a href="#settings" data-toggle="tab">Campo</a></li>
                 </ul>
@@ -70,8 +66,8 @@
 
                     @await Html.PartialAsync("_Message")
                 </div>
-                <div class="tab-pane" id="timeline">
-
+                <div class="tab-pane" id="reunion">
+                    @await Html.PartialAsync("_interaction")
 
                 </div>
                 <div class="tab-pane" id="note">
@@ -82,100 +78,7 @@
             <br />
             <h3> Actividades </h3>
             @await Html.PartialAsync("_Timeline")
-            @*<h3> Actividades </h3>
-            <div class="row clearfix">
-                <div class="tab-pane" id="timeline">
-                    <!-- The timeline -->
-                    <ul class="timeline timeline-inverse">
-                        <!-- timeline time label -->
-                        <li class="time-label">
-                            <span class="bg-red">
-                                10 Feb. 2014
-                            </span>
-                        </li>
-                        <!-- /.timeline-label -->
-                        <!-- timeline item -->
-                        <li>
-                            <i class="fa fa-envelope bg-blue"></i>
 
-                            <div class="timeline-item">
-                                <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-                                <h3 class="timeline-header"><a href="#">Llamada</a> Enviar Mail</h3>
-
-                                <div class="timeline-body">
-                                    Pregunta de cotización
-                                </div>
-                                <div class="timeline-footer">
-                                    <a class="btn btn-primary btn-xs">Mas</a>
-
-                                </div>
-                            </div>
-                        </li>
-                        <!-- END timeline item -->
-                        <!-- timeline item -->
-                        <li>
-                            <i class="fa fa-user bg-aqua"></i>
-
-                            <div class="timeline-item">
-                                <span class="time"><i class="fa fa-clock-o"></i>Nota</span>
-
-                                <h3 class="timeline-header no-border">
-                                    <a href="#">Llamar al dueño del lugar
-                                </h3>
-                            </div>
-                        </li>
-                        <!-- END timeline item -->
-                        <!-- timeline item -->
-                        <li>
-                            <i class="fa fa-comments bg-yellow"></i>
-
-                            <div class="timeline-item">
-                                <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
-
-                                <h3 class="timeline-header"><a href="#">Jay White</a> Lunes a las 8:0</h3>
-
-                                <div class="timeline-body">
-                                    Cita
-                                </div>
-                                <div class="timeline-footer">
-                                    <a class="btn btn-warning btn-flat btn-xs">View comment</a>
-                                </div>
-                            </div>
-                        </li>
-                        <!-- END timeline item -->
-                        <!-- timeline time label -->
-                        <li class="time-label">
-                            <span class="bg-green">
-                                3 Jan. 2014
-                            </span>
-                        </li>
-                        <!-- /.timeline-label -->
-                        <!-- timeline item -->
-                        <li>
-                            <i class="fa fa-camera bg-purple"></i>
-
-                            <div class="timeline-item">
-                                <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
-
-                                <h3 class="timeline-header"><a href="#">Tarea</a>Fotos de la tarea</h3>
-
-                                <div class="timeline-body">
-                                    <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                    <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                    <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                    <img src="http://placehold.it/150x100" alt="..." class="margin">
-                                </div>
-                            </div>
-                        </li>
-                        <!-- END timeline item -->
-                        <li>
-                            <i class="fa fa-clock-o bg-gray"></i>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>*@
         </div>
 </section>
 
@@ -183,19 +86,52 @@
     <script src="~/Framework/bower_components/ckeditor/ckeditor.js"></script>
     <script src="~/Framework/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js"></script>
     <script src="~/Helpers/taskHelpers.js"></script>
+    <script src="~/js/jquery.toaster.js"></script>
     <script>
 
         //bootstrap WYSIHTML5 - text editor
         var IdPredioActivo = '@Html.Raw(Idpredio)';
-      bindPredioID(IdPredioActivo)
+        var IdPredioArea = '@Html.Raw(Idarea)';
+        function SaveNota()
+        {
+            var a = CKEDITOR.instances['coment_note'].getData();
+            SaveNotaAJAX(IdPredioActivo, IdPredioArea, a)
+        }
+        function SaveCorreo() {
+        
+            SaveMailAJAX(IdPredioActivo, $('#subject_msg').val(), $('#des_msg').val(), $('#coment_msg').val())
 
-            function tab_Perdio(id) {
+
+            $('#subject_msg').val('')
+            $('#des_msg').val('')
+            $('#coment_msg').val('')
+        }
+        function SaveRunion() {
+
+            SaveReunionAJAX(IdPredioActivo, $('#subject_reu').val(), $('#reservationtime').val(), $('#coment_reu').val())
+
+
+            $('#coment_reu').val('')
+            $('#subject_reu').val('')
+            $('#reservationtime').val('')
+        }
+        bindPredioID(IdPredioActivo);
+
+       function tab_Perdio(id) {
                 $(".mardis-nav").removeClass("active");
                 var element = document.getElementById(id);
                 element.classList.add("active");
-
                 bindPredioID(id)
         }
-        CKEDITOR.replace('editor1')
+        CKEDITOR.replace('coment_note')
+        $('#reservationtime').daterangepicker({
+            timePicker: true,
+            startDate: moment().startOf('hour'),
+            endDate: moment().startOf('hour').add(32, 'hour'),
+            locale: {
+                format: 'DD/MM/YYYY hh:mm'
+            }
+        }
+        )
     </script>
 }

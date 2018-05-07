@@ -1,14 +1,13 @@
-﻿using System;
+﻿using Realstate.Models.BaseDatos;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Realstate.Models.BaseDatos
+namespace Realstate.Models.Struct
 {
-    public partial class Task
+    public class TaskViewModel
     {
-        public Task()
-        {
-            detailtaks = new HashSet<DetailTask>();
-        }
         public int Id { get; set; }
         public int IdAccount { get; set; }
         public int? IdPredio { get; set; }
@@ -32,6 +31,6 @@ namespace Realstate.Models.BaseDatos
         public StatusTask IdStatusTaskNavigation { get; set; }
         public TypeTask IdTypeTaskNavigation { get; set; }
 
-        public ICollection<DetailTask> detailtaks { get; set; }
+        public List<DetailViewModel> detailtaks { get; set; }
     }
 }

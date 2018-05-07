@@ -13,7 +13,8 @@
 <section class="content">
     <h2>AreasProspeccion</h2>
 
-    <form asp-action="AreasProspeccion">
+    <form asp-action="AreasProspeccion" id="formSave"    data-ajax-method="POST" data-ajax="true"        data-ajax-success="Success"
+                          data-ajax-failure ="Failure">
 
         <div class="box box-default">
             <div class="box-header with-border">
@@ -21,14 +22,20 @@
             </div>
             <div class="box-body">
                 <div class="col-md-12 form-horizontal">
+                    <div class="col-md-4" hidden>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group-inline">
+                            <label asp-for="Id" class="control-label "></label>
+                            <input asp-for="Id" class="form-control" value="@IdRegister"/>
 
+                        </div>
+                    </div>
                     <div class="col-md-4" hidden>
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group-inline">
                             <label asp-for="IdProyecto" class="control-label "></label>
                             <input asp-for="IdProyecto" class="form-control" />
-                            <input asp-for="Id" class="form-control" />
-                        </div>
+                    </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group-inline">
@@ -119,23 +126,23 @@
 
                 </div>
             </div>
-    </form>
-    @*<div>
-            <a asp-action="Index">Back to List</a>
-        </div>*@
-    </div>
-    <div id="IdPredio">
 
-        @if (IdRegister != "0")
+            @*<div>
+                <a asp-action="Index">Back to List</a>
+            </div>*@
+        </div>
+        <div id="IdPredio">
+
+            @if (IdRegister != "0")
         {
 
             @await Html.PartialAsync("_Predio")
 
-        }
+    }
 
-    </div>
+        </div>
 
-
+    </form>
 </section>
 @section scripts{
 
@@ -147,7 +154,25 @@
      
         var IdAreaProspeccion = '@Html.Raw(IdRegister)';
         bindPredio(IdAreaProspeccion)
-    
+        function Success()
+        {
+            if (IdAreaProspeccion != 0) { 
+
+         
+
+                if (app.$data.predios[0].image != '') {
+                    alert(app.$data.predios[0].image);
+                    Save();
+
+                }
+            }
+       
+        }
+
+        function Failure() {
+
+            alert("Form Failed");
+        }
 
     </script>
 }

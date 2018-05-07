@@ -40,7 +40,7 @@ namespace Realstate.Models.BaseDatos
         public DateTime? CreationDate { get; set; }
         public string Usercreation { get; set; }
         public string StatusRegister { get; set; }
-        public string imagen { get; set; }
+        public byte[] imagen { get; set; }
 
         public Project IdProyectoNavigation { get; set; }
         public ICollection<Predio> Predio { get; set; }

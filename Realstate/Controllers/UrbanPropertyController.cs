@@ -71,15 +71,46 @@ namespace Realstate.Controllers
                     Model.CreationDate = DateTime.Now;
                     Model.Usercreation = user.UserName;
                     _AreaProspeccionDAO.GuardarAreas_Prospeccion(Model);
-                    ViewData["IdPredio"] = Model.Id.ToString();
-                }
 
+                }
+                ViewData["IdPredio"] = Model.Id.ToString();
                 return View(Model);
             }
             return RedirectToAction(nameof(AccountController.Login), "Account");
 
         }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> AreasProspeccion(ZonaProspectada Model)
+        //{
+        //    var user = await _userManager.GetUserAsync(User);
+        //    if (user != null)
+        //    {
+        //        ViewBag.Propietario = new SelectList(_AreaProspeccionDAO.GetPropietario(), "Id", "Name");
+        //        if (ModelState.IsValid)
+        //        {
 
+        //            Model.CreationDate = DateTime.Now;
+        //            Model.Usercreation = user.UserName;
+        //            _AreaProspeccionDAO.GuardarAreas_Prospeccion(Model);
+        //            return this.Json(new
+        //            {
+        //                EnableSuccess = true,
+        //                SuccessTitle = "Success",
+        //                SuccessMsg = Model.Id
+        //            });
+        //        }
+        //        ViewData["IdPredio"] = Model.Id.ToString();
+        //        return this.Json(new
+        //        {
+        //            EnableError = true,
+        //            ErrorTitle = "Error",
+        //            ErrorMsg = "Something goes wrong, please try again later"
+        //        });
+        //    }
+        //    return RedirectToAction(nameof(AccountController.Login), "Account");
+
+        //}
         [HttpPost]
         public async Task<JsonResult> GuardarPredios(String ModelJson, String IdArea) {
             var user = await _userManager.GetUserAsync(User);

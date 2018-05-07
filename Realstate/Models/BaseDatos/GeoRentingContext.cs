@@ -655,10 +655,15 @@ namespace Realstate.Models.BaseDatos
                 entity.Property(e => e.Reference)
                     .HasColumnName("reference")
                     .HasMaxLength(500);
-
+                entity.Property(e => e.imagen)
+                     .IsRequired()
+                     .HasColumnType("image");
                 entity.Property(e => e.StatusRegister).HasColumnType("nchar(10)");
-                entity.Property(e => e.imagen).HasColumnType("varchar(MAX)");
 
+
+                entity.Property(e => e.imagen)
+                    .IsRequired()
+                    .HasColumnType("image");
                 entity.Property(e => e.StreetMain).HasColumnType("nchar(500)");
 
                 entity.Property(e => e.StreetSecundary).HasColumnType("nchar(500)");

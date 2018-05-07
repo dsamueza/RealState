@@ -322,6 +322,7 @@ namespace Realstate.Data.Negocio
                 {
                     var _predio = _context.Predio.SingleOrDefault(m => m.Id == AreaProspeccion);
                     _context.Predio.Remove(_predio);
+                    get = _context.SaveChanges();
                     return 1;
                 }
                 

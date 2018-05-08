@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Realstate.Models.BaseDatos.Propietario>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_RealState.cshtml";
+}
+
+
+
+<div class="col-md-9 col-lg-12  main " style="right: 10px;">
+
+    <section class="invoice">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="page-header">Propietarios</h2>
+
+                <p style="text-align:right">
+                    <a asp-action="Create" class="btn btn-danger glyphicon glyphicon-plus-sign"> NUEVO</a>
+
+                </p>
+            </div>
+        </div>
+        <div class="box">
+
+            <div class="box-header">
+
+
+                <table class="table table-bordered table-striped" id="tablapropietario">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Cedula)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Phone)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Movil)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Cedula)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Phone)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Movil)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" class="glyphicon glyphicon-pencil" style="font-size: 20px; color: #f39c12;" asp-route-id="@item.Id"></a> 
+                                    <a asp-action="Delete" class="glyphicon glyphicon-trash" style="font-size: 20px; color: #ff0000;"asp-route-id="@item.Id"></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </section>
+    </div>
+    @section scripts{
+        <script>
+            $("#tablapropietario").DataTable();
+        </script>
+    }

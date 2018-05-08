@@ -21,14 +21,14 @@ namespace Realstate.Controllers
         // GET: ZonaProspectadas
         public async Task<IActionResult> Index()
         {
-            var geoRentingContext = _context.ZonaProspectada.Include(z => z.IdProyectoNavigation);
+            var geoRentingContext = _context.ZonaProspectada.Where(x => x.StatusRegister != "E").Include(z => z.IdProyectoNavigation);
             return View(await geoRentingContext.ToListAsync());
         }
 
 
         public async Task<IActionResult> ZonaProyecto(int? idProject)
         {
-            var geoRentingContext = _context.ZonaProspectada.Where(x => x.IdProyecto == idProject).Include(z => z.IdProyectoNavigation).Include(z=> z.Predio);
+            var geoRentingContext = _context.ZonaProspectada.Where(x => x.IdProyecto == idProject && x.StatusRegister != "E").Include(z => z.IdProyectoNavigation).Include(z => z.Predio);
             ViewBag.idProject = idProject;
             return PartialView(await geoRentingContext.ToListAsync());
         }
@@ -148,6 +148,7 @@ namespace Realstate.Controllers
 
             var zonaProspectada = await _context.ZonaProspectada
                 .Include(z => z.IdProyectoNavigation)
+                .Include(z => z.Predio)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (zonaProspectada == null)
             {
@@ -163,9 +164,10 @@ namespace Realstate.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var zonaProspectada = await _context.ZonaProspectada.SingleOrDefaultAsync(m => m.Id == id);
-            _context.ZonaProspectada.Remove(zonaProspectada);
+            zonaProspectada.StatusRegister = "E";
+            _context.ZonaProspectada.Update(zonaProspectada);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("ProyectosZona", "Projects", new { id = zonaProspectada.IdProyecto });
         }
 
         private bool ZonaProspectadaExists(int id)

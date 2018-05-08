@@ -395,23 +395,23 @@ namespace Realstate.Models.BaseDatos
 
                 entity.Property(e => e.Cedula)
                     .HasColumnName("cedula")
-                    .HasColumnType("nchar(10)");
+                    .HasColumnType("varchar(50)");
 
                 entity.Property(e => e.Email)
                     .HasColumnName("email")
-                    .HasColumnType("nchar(10)");
+                    .HasColumnType("varchar(50)");
 
                 entity.Property(e => e.Movil)
                     .HasColumnName("movil")
-                    .HasColumnType("nchar(10)");
+                    .HasColumnType("varchar(50)");
 
                 entity.Property(e => e.Name)
                     .HasColumnName("name")
-                    .HasColumnType("nchar(10)");
+                    .HasColumnType("varchar(50)");
 
                 entity.Property(e => e.Phone)
                     .HasColumnName("phone")
-                    .HasColumnType("nchar(10)");
+                    .HasColumnType("varchar(50)");
             });
 
             modelBuilder.Entity<Province>(entity =>

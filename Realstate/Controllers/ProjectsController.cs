@@ -22,7 +22,7 @@ namespace Realstate.Controllers
         // GET: Projects
         public async Task<IActionResult> Index()
         {
-            var geoRentingContext = _context.Project.Include(p => p.IdAccountNavigation)
+            var geoRentingContext = _context.Project.Where(x => x.StatusRegister != "E").Include(p => p.IdAccountNavigation)
                 .Include(p => p.IdContryNavigation)
                 .Include(p => p.IdDistrictNavigation)
                 .Include(p => p.IdLinkNavigation)
@@ -32,7 +32,7 @@ namespace Realstate.Controllers
                 .Include(p => p.Zona);
             return View(await geoRentingContext.ToListAsync());
         }
-        public async Task<IActionResult> ProyectosZona()
+        public async Task<IActionResult> ProyectosZona(int? id)
         {
             var geoRentingContext = _context.Project.Include(p => p.IdAccountNavigation)
                 .Include(p => p.IdContryNavigation)
@@ -42,8 +42,12 @@ namespace Realstate.Controllers
                 .Include(p => p.IdProvinceNavigation)
                 .Include(p => p.IdSectorNavigation)
                 .Include(p => p.Zona);
+            ViewBag.id = id;
             return View(await geoRentingContext.ToListAsync());
         }
+
+        
+
 
         // GET: Projects/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -281,6 +285,7 @@ namespace Realstate.Controllers
                 .Include(p => p.IdProvinceNavigation)
                 .Include(p => p.IdSectorNavigation)
                 .Include(p => p.Zona)
+                .Include(p=>p.ZonaProspectada)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (project == null)
             {
@@ -296,7 +301,8 @@ namespace Realstate.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var project = await _context.Project.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Project.Remove(project);
+            project.StatusRegister = "E";
+            _context.Project.Update(project);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

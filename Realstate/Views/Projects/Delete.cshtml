@@ -15,7 +15,7 @@
                     <h3>¿Estás seguro que quieres eliminar esto?</h3>
                 </div>
                 <div class="box-body">
-                   
+
                     <dl class="dl-horizontal">
                         <dt>
                             @Html.DisplayNameFor(model => model.Code)
@@ -54,16 +54,42 @@
                             @Html.DisplayFor(model => model.StatusRegister)
                         </dd>
                        
+
                     </dl>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">
+                        Eliminar
+                    </button>
+                  
 
-                    <form asp-action="Delete">
-                        <input type="hidden" asp-for="Id" />
-                        <input type="submit" value="Eliminar" class="btn btn-primary" /> 
-                        <a asp-action="Index" class="btn btn-primary">Salir</a>
-                    </form>
-
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="modal fade" id="modal-default" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title">¿Estás seguro que quieres eliminar el proyecto?</h4>
+                </div>
+                <div class="modal-body">
+                    Este proyecto cuenta con @Model.ZonaProspectada.Count() Zonas Prospectadas.
+                </div>
+                <div class="modal-footer">
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        
+
+                        <a asp-action="Index" class="btn btn-primary" >
+                            Salir
+                        </a>
+                        <button type="submit" class="btn btn-primary">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    </div>
 </section>

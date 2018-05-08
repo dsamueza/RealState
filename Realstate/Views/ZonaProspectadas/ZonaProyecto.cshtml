@@ -27,7 +27,15 @@ top:inherit;
                                 <strong> NOMBRE DE ÁREA: </strong>@Html.DisplayFor(modelItem => item.Name)
                             </div>
                             <div class="form-group">
-                                <img src="@item.imagen" style="width:114px;height:58px" />
+                                @if (item.imagen != null)
+                                {
+                                    <img src="data:image;base64,@System.Convert.ToBase64String(item.imagen)" style="width:114px;height:58px" />
+                                }
+                                else
+                                {
+                                    <img src="" style="width:114px;height:58px" />
+
+                                }
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -53,37 +61,29 @@ top:inherit;
                                 <strong>USUARIO RESPONSABLE: </strong> @Html.DisplayFor(modelItem => item.Usercreation)
                             </div>
                             <div class="form-group">
-                                <a href='@Url.Action("AreasProspeccion", "UrbanProperty",
-                                    new { idProyecto = @ViewBag.idProject,IdArea=item.Id})' class="btn btn-danger">IR</a>
+                                @if (item.Predio.Count() != 0)
+                                {
+                                    <a href='@Url.Action("Index", "task",
+                                    new { IdArea = item.Id })' class="btn btn-danger">Tareas</a>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-danger" onclick="alerta()">Tareas</button>
+
+                                }
+
                             </div>
+                            <div class="form-group">
+                                <a href='@Url.Action("AreasProspeccion", "UrbanProperty", new { idProyecto =  ViewBag.idProject ,IdArea=item.Id })' class="glyphicon glyphicon-pencil" style="font-size: 20px; color: #f39c12;"></a>
+                          
+                                <a asp-action="Delete" class="glyphicon glyphicon-trash" style="font-size: 20px; color: #ff0000;" asp-route-id="@item.Id"></a>
+                            </div>
+
                         </div>
-                        @*<table border="0">
-                                <tr>
-                                    <td></td>
-                                    <td colspan="2"</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>
 
-                                    </td>
-                                    <td>
-                                        <table>
-                                            <tr><td>@Html.DisplayFor(modelItem => item.Zona)</td></tr>
-                                            <tr><td> @Html.DisplayFor(modelItem => item.StreetMain)</td></tr>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <table>
-                                            <tr><td> 5</td></tr>
-                                            <tr><td> @Html.DisplayFor(modelItem => item.StreetSecundary)</td></tr>
-                                        </table>
-                                    </td>
-                                    <td>
 
-                                    </td>
-                                </tr>
-                            </table>*@
+
+                       
                     </div>
                 </div>
             </div>
@@ -97,6 +97,24 @@ top:inherit;
 </div>
 @section Scripts {
     <script>
+        function alerta() {
+            //un alert
+            alertify.alert("<b>Zona Prospectada</b> no contiene predios", function () {
+                //aqui introducimos lo que haremos tras cerrar la alerta.
+                //por ejemplo -->  location.href = 'http://www.google.es/';  <-- Redireccionamos a GOOGLE.
+            });
+        }
+        function confirmar(id) {
+            //un confirm
+            alertify.confirm("<br><br><b>Desea eliminar Zona Prospectada.</b></p>", function (e) {
+                if (e) {
+                    alertify.success("Has pulsado '" + alertify.labels.ok + "'");
 
+                } else {
+                    alertify.error("Has pulsado '" + alertify.labels.cancel + "'");
+                }
+            });
+            return false
+        }
     </script>
 }

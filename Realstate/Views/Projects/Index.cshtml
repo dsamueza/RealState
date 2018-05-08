@@ -58,7 +58,13 @@
 
                                 </td>*@
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Name)
+                                   
+                                    <a asp-controller="Projects"
+                                       asp-action="ProyectosZona"
+                                       asp-route-id="@item.Id">
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </a>
+
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.IdProvinceNavigation.Name)

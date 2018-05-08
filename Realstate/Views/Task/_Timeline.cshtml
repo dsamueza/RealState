@@ -75,6 +75,41 @@
                     <!-- timeline time label -->
                     <li class="box-header  time-label">
 
+                        <button type="button" class="btn btn-box-tool btn bg-warning btn-flat" data-widget="collapse">
+                            {{moment(task_vue.DateModification).format('LT')}}
+                        </button>
+                    </li>
+                    <!-- /.timeline-label -->
+                    <!-- timeline item -->
+
+                    <li class="box-body">
+
+
+                        <i class="fa fa-tasks bg-orange"></i>
+                        <div class="timeline-item" style="border-radius:0px !important">
+
+                            <span class="time"><i class="fa fa-clock-o"></i>   {{moment(task_vue.DateModification).format('LT')}}</span>
+                            <h3 class="timeline-header"><a href="#">Tarea</a>  {{task_vue.detailtaks[0].addressee}}</h3>
+                            <div class="timeline-body">
+                                <div class=" invoice-col">
+                                    <b>{{task_vue.detailtaks[0].subjects}}</b> <br>
+                                    <p>{{task_vue.detailtaks[0].coment}}</p>
+                                    <b>Fecha programada:</b>{{moment(task_vue.detailtaks[0].creation_meeting).format('L')}} <br />
+                                    <b>Tiempo estimado :</b>{{time(task_vue.detailtaks[0].creation_meeting,task_vue.detailtaks[0].endMeting)}}
+                                </div>
+
+                            </div>
+                            <div class="timeline-footer pull-right ">
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+                <!---Reunion--->
+                <ul class="timeline timeline-inverse box" v-if="task_vue.idTypeTask==6">
+                    <!-- timeline time label -->
+                    <li class="box-header  time-label">
+
                         <button type="button" class="btn btn-box-tool btn bg-aqua btn-flat" data-widget="collapse">
                             {{moment(task_vue.DateModification).format('LT')}}
                         </button>
@@ -88,11 +123,12 @@
                         <div class="timeline-item" style="border-radius:0px !important">
 
                             <span class="time"><i class="fa fa-clock-o"></i>   {{moment(task_vue.DateModification).format('LT')}}</span>
-                            <h3 class="timeline-header"><a href="#">Reunión</a>  {{task_vue.detailtaks[0].addressee}}</h3>
+                            <h3 class="timeline-header"><a href="#">Reunión</a>  </h3>
                             <div class="timeline-body">
                                 <div class=" invoice-col">
                                     <b>{{task_vue.detailtaks[0].subjects}}</b> <br>
-                                    <p >{{task_vue.detailtaks[0].coment}}></p>
+                                    <p>{{task_vue.detailtaks[0].coment}}</p>
+                                    <b>Persona:</b>{{task_vue.detailtaks[0].addressee}} <br />
                                     <b>Fecha programada:</b>{{moment(task_vue.detailtaks[0].creation_meeting).format('L')}} <br />
                                     <b>Tiempo estimado :</b>{{time(task_vue.detailtaks[0].creation_meeting,task_vue.detailtaks[0].endMeting)}}
                                 </div>

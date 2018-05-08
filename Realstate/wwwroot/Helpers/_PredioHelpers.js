@@ -5,7 +5,7 @@ var IdJsonPredido
 
 
 
-function bindPredio(Id) {
+function bindPredio(Id,status) {
     IdJsonPredido = Id
     $.blockUI({ message: "cargando..." });
     $.ajax({
@@ -19,8 +19,18 @@ function bindPredio(Id) {
         dataType: "json",
         success: function (data) {
             if (data) {
-                console.log(data)
-                ApplyBindingPredio(data);
+  
+                if (status == 1) { ApplyBindingPredio(data);}
+                if (status == 2) {
+
+                  
+                 
+                    jQuery.each(data, function (index, value) {
+                        //    app.removedata(0);
+                          app.addlistPredio(value.id, value.idZonaProspectada, index);
+                    });
+                }
+
                 $.unblockUI();
             } else {
                 alert("Error! no se ha encontrado la tarea2" + error);
@@ -121,6 +131,14 @@ function ApplyBindingPredio(_model) {
         }, removedata: function (index) {
 
             this.predios.splice(index, 1);
+        },
+        addlistPredio: function (_id, area,index) {
+            
+            this.predios[index].id = _id
+            this.predios[index].idZonaProspectada = area
+        },
+        ViewPropietarioVUE: function (_id) {
+            DataPropietario(_id)
         }
     }
     })
@@ -139,7 +157,8 @@ function Save() {
           
         },
         success: function (data) {
-        
+
+            bindPredio(IdAreaProspeccion, 2)
             $.unblockUI();
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -149,7 +168,9 @@ function Save() {
 
 
 }
-
+function addlistVue() {
+    app.addPredio()
+}
 function deletePredio(id,index) {
 
     $.blockUI({ message: "Eliminando..." });
@@ -176,6 +197,63 @@ function deletePredio(id,index) {
         },
         error: function (xhr, ajaxOptions, thrownError) {
             $.unblockUI();
+        }
+    });
+
+
+}
+
+function DataPropietario(id) {
+
+ 
+
+    $.ajax({
+        url: "/UrbanProperty/GetPropietario",
+        type: "get",
+        data: {
+
+            idPropietario: id
+
+        },
+        success: function (data) {
+
+
+            jQuery.each(data, function (index, value) {
+                //    app.removedata(0);
+                var dialog = bootbox.dialog({
+                    title: 'Datos del Propietario',
+                    size: 'small',
+                    message: "<ul style='text-decoration: none; list-style: none;'><li > <b> Cédula:</b> "
+                        + value.cedula
+                        + "</li> <li><b>Nombre:</b>  "
+                        + value.name
+                        + "</li>"
+                        + "</li> <li><b>Telefono:</b>  "
+                        + value.phone
+                        + "</li> "
+                        + "</li> <li><b>Celular:</b>  "
+                        + value.movil
+                        + "</li> "
+                        + "</li> <li><b>Mail:</b>  "
+                        + value.email
+                        + "</li></ul > ",
+                    buttons: {
+                        cancel: {
+                            label: "OK",
+                            className: 'btn-danger',
+
+                        }
+
+                    }
+
+                });
+            });
+          
+          
+         
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+          
         }
     });
 

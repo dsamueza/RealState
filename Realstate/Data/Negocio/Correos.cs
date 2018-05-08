@@ -34,7 +34,7 @@ namespace Realstate.Data.Negocio
         {
             server.Send(mensaje);
         }
-        public void enviar(string _subject, string _to, string _body) {
+        public void enviar(string _subject, string _to, string _body,String adjunto) {
 
             try
             {
@@ -48,7 +48,7 @@ namespace Realstate.Data.Negocio
                 mnsj.From = new MailAddress("mardisresearch.engine@gmail.com", "Mardis Research");
 
                 /* Si deseamos Adjuntar algún archivo*/
-              //  mnsj.Attachments.Add(new Attachment("C:\\archivo.pdf"));
+                mnsj.Attachments.Add(new Attachment(adjunto));
 
                 mnsj.Body = _body;
 

@@ -24,8 +24,14 @@ namespace Realstate.Data.Negocio
         /// <param name="id">Id del proyecto</param>
         /// <returns>Nombre unico por proyecto</returns>
         public string ObtenerNombreProyecto(int id) {
-            var project = _context.Project.Where(x => x.Id.Equals(id)).First().Name;
-            return project;
+
+            var area = _context.ZonaProspectada.Where(x => x.Id.Equals(id)).Select(x =>x.IdProyecto);
+            if (area.Count() > 0) {
+                var project = _context.Project.Where(x => x.Id.Equals(area.First())).First().Name;
+                return project;
+            }
+   
+            return "";
         }
 
         /// <summary>
@@ -115,6 +121,22 @@ namespace Realstate.Data.Negocio
             else { return null; }
                 
         }
+
+
+        public IList<Propietario> ObtenePropietario(int id)
+        {
+            var _propietario = _context.Propietario.Where(x => x.Id.Equals(id));
+ 
+            if (_propietario.Count() > 0)
+            {
+           
+                var _model = _propietario.ToList();
+                return _model;
+            }
+            else { return null; }
+
+        }
+
         /// <summary>
         /// Retorna todos los Propietarios
         /// </summary>
@@ -231,7 +253,7 @@ namespace Realstate.Data.Negocio
             return null;
 
         }
-        public int GuardarAreas_task(string coment , int idpredio , String destinatario, String asunto, int tipo, string adjunto, string usuario)
+        public int GuardarAreas_task(string coment , int idpredio , String destinatario, String asunto, int tipo, string adjunto, string usuario,string fechatask)
         {
             using (var transaction = _context.Database.BeginTransaction())
             {
@@ -291,7 +313,7 @@ namespace Realstate.Data.Negocio
 
                     string[] separadas;
 
-                    separadas = destinatario.Split('-');
+                    separadas = fechatask.Split('-');
 
 
                     _taskDetail.coment = coment;
@@ -302,6 +324,31 @@ namespace Realstate.Data.Negocio
                     _taskDetail.IdTask = _task.Id;
                     _taskDetail.subjects = asunto;
                    
+                    _context.Add(_taskDetail);
+                    _context.Entry(_taskDetail).State = EntityState.Added;
+                    get = _context.SaveChanges();
+                }
+
+                if (_task.IdTypeTask == 6)
+                {
+
+                    DetailTask _taskDetail = new DetailTask();
+
+
+                    string[] separadas;
+
+                    separadas = fechatask.Split('-');
+
+
+                    _taskDetail.coment = coment;
+                    _taskDetail.attached = adjunto;
+                    _taskDetail.creation_date = DateTime.Now;
+                    _taskDetail.creation_meeting = Convert.ToDateTime(separadas[0].Trim());
+                    _taskDetail.ENDMeting = Convert.ToDateTime(separadas[1].Trim());
+                    _taskDetail.IdTask = _task.Id;
+                    _taskDetail.subjects = asunto;
+                    _taskDetail.attached = adjunto;
+                    _taskDetail.addressee = destinatario;
                     _context.Add(_taskDetail);
                     _context.Entry(_taskDetail).State = EntityState.Added;
                     get = _context.SaveChanges();

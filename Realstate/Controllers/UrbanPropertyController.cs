@@ -48,7 +48,7 @@ namespace Realstate.Controllers
             if (user != null)
             {
              
-                ViewBag.NombreProyecto = _AreaProspeccionDAO.ObtenerNombreProyecto(IdProyecto);
+                ViewBag.NombreProyecto = _AreaProspeccionDAO.ObtenerNombreProyecto(IdArea);
                 ViewData["IdPredio"] = IdArea.ToString();
                 ViewBag.Propietario = new SelectList(_AreaProspeccionDAO.GetPropietario(), "Id", "Name");
                 ZonaProspectada _model = IdArea > 0 ?  _AreaProspeccionDAO.ObteneZonaProspectada(IdArea) : new ZonaProspectada();
@@ -142,6 +142,25 @@ namespace Realstate.Controllers
             catch (Exception e)
             {
                 
+                return null;
+            }
+        }
+
+
+
+        [HttpGet]
+        public JsonResult GetPropietario(String idPropietario)
+        {
+            try
+            {
+                var model = _AreaProspeccionDAO.ObtenePropietario(int.Parse(idPropietario));
+           
+                JSonConvertUtil.Convert(model);
+                return Json(model);
+            }
+            catch (Exception e)
+            {
+
                 return null;
             }
         }

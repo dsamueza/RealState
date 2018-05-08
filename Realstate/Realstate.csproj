@@ -1959,6 +1959,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.2.2" />
+    <PackageReference Include="HttpFileCollectionBaseExtension" Version="1.1.0" />
     <PackageReference Include="knockoutjs" Version="3.4.2" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.0.2" />
@@ -7350,6 +7351,10 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="wwwroot\Framework\bower_components\moment\moment.d.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Document\" />
   </ItemGroup>
 
 </Project>

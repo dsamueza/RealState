@@ -61,3 +61,18 @@
     left: 50%;
    
 }
+.bg-warning-mardis {
+background-color:#fff;
+}
+
+
+
+    .bg-warning-mardis .file-preview-frame {
+        width: 100px;
+        height: 120px;
+    }
+
+.krajee-default.file-preview-frame .kv-file-content {
+    width: 85px !important;
+    height: 130px !important;
+}

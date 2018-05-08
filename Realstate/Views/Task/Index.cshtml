@@ -56,7 +56,8 @@
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs  ">
                     <li class="active"><a href="#mail" data-toggle="tab">Correo</a></li>
-                    <li><a href="#reunion" data-toggle="tab">Reunión</a></li>
+                    <li><a href="#reunion" data-toggle="tab">Tareas</a></li>
+                    <li><a href="#tasks" data-toggle="tab">Reunión</a></li>
                     <li><a href="#note" data-toggle="tab">Notas</a></li>
                     <li><a href="#settings" data-toggle="tab">Campo</a></li>
                 </ul>
@@ -67,6 +68,10 @@
                     @await Html.PartialAsync("_Message")
                 </div>
                 <div class="tab-pane" id="reunion">
+                    @await Html.PartialAsync("_Tareas")
+
+                </div>
+                <div class="tab-pane" id="tasks">
                     @await Html.PartialAsync("_interaction")
 
                 </div>
@@ -80,6 +85,19 @@
             @await Html.PartialAsync("_Timeline")
 
         </div>
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+            <!-- The Close Button -->
+            <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
+
+            <!-- Modal Content (The Image) -->
+            <img class="modal-content" id="img01">
+
+            <!-- Modal Caption (Image Text) -->
+            <div id="caption"></div>
+        </div>
+
 </section>
 
 @section scripts{
@@ -87,33 +105,50 @@
     <script src="~/Framework/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js"></script>
     <script src="~/Helpers/taskHelpers.js"></script>
     <script src="~/js/jquery.toaster.js"></script>
+    <script src="~/Framework/plugins/file/fileinput.min.js"></script>
+    <script src="~/Framework/plugins/file/fileinput_locale_es.js"></script>
     <script>
 
         //bootstrap WYSIHTML5 - text editor
         var IdPredioActivo = '@Html.Raw(Idpredio)';
         var IdPredioArea = '@Html.Raw(Idarea)';
+        var urlUpdate;
         function SaveNota()
         {
             var a = CKEDITOR.instances['coment_note'].getData();
             SaveNotaAJAX(IdPredioActivo, IdPredioArea, a)
         }
         function SaveCorreo() {
-        
-            SaveMailAJAX(IdPredioActivo, $('#subject_msg').val(), $('#des_msg').val(), $('#coment_msg').val())
+       
+            if (urlUpdate != '') {
+                SaveMailAJAX(IdPredioActivo, $('#subject_msg').val(), $('#des_msg').val(), $('#coment_msg').val(), urlUpdate)
+                $fileInput = $('#file-es');
 
+                $('#subject_msg').val('')
+                $('#des_msg').val('')
+                $('#coment_msg').val('')
+                clearFileInput($fileInput);
+            } else { 
 
-            $('#subject_msg').val('')
-            $('#des_msg').val('')
-            $('#coment_msg').val('')
+                alert('archivo cargado')
+            }
         }
         function SaveRunion() {
 
-            SaveReunionAJAX(IdPredioActivo, $('#subject_reu').val(), $('#reservationtime').val(), $('#coment_reu').val())
+            SaveReunionAJAX(IdPredioActivo, $('#subject_reu').val(), $('#reservationtime').val(), $('#coment_reu').val(),"",4)
 
 
             $('#coment_reu').val('')
             $('#subject_reu').val('')
             $('#reservationtime').val('')
+        }
+        function SaveTask() {
+
+            SaveReunionAJAX(IdPredioActivo, $('#subject_task').val(), $('#reservationtime_int').val(), $('#coment_task').val(), $('#Destinatario_task').val(),6)
+            $('#subject_task').val('')
+            $('#coment_task').val('')
+            $('#reservationtime_int').val('')
+            $('#Destinatario_task').val('')
         }
         bindPredioID(IdPredioActivo);
 
@@ -133,5 +168,84 @@
             }
         }
         )
+        $('#reservationtime_int').daterangepicker({
+            timePicker: true,
+            startDate: moment().startOf('hour'),
+            endDate: moment().startOf('hour').add(32, 'hour'),
+            locale: {
+                format: 'DD/MM/YYYY hh:mm'
+            }
+        }
+        )
+
+        //Cargar archivos
+        $('#file-es').fileinput({
+            language: 'es',
+            uploadAsync: true,
+            maxFileCount: 1,
+            showUpload: true,
+            showRemove: false,
+            dropZoneEnabled: false,
+            previewClass: "bg-warning-mardis",
+            uploadUrl: "@Url.Action("UploadFiles", "Task")",
+            allowedFileExtensions: ['jpg', 'png', 'gif', 'jpeg','rar'],
+
+        }).on('fileuploaded', function (event, data, id, index) {
+            response= data.response
+            urlUpdate = response
+      
+
+            });
+
+
+        function clearFileInput($input) {
+            if ($input.val() == '') {
+                return;
+            }
+            // Fix for IE ver < 11, that does not clear file inputs
+            // Requires a sequence of steps to prevent IE crashing but
+            // still allow clearing of the file input.
+            if (/MSIE/.test(navigator.userAgent)) {
+                var $frm1 = $input.closest('form');
+                if ($frm1.length) { // check if the input is already wrapped in a form
+                    $input.wrap('<form>');
+                    var $frm2 = $input.closest('form'), // the wrapper form
+                        $tmpEl = $(document.createElement('div')); // a temporary placeholder element
+                    $frm2.before($tmpEl).after($frm1).trigger('reset');
+                    $input.unwrap().appendTo($tmpEl).unwrap();
+                } else { // no parent form exists - just wrap a form element
+                    $input.wrap('<form>').closest('form').trigger('reset').unwrap();
+                }
+            } else { // normal reset behavior for other sane browsers
+                $input.val('');
+            }
+        }
+
+
+        var modal = document.getElementById('myModal');
+
+        // Get the image and insert it inside the modal - use its "alt" text as a caption
+        var img = document.getElementById('myImg');
+        var modalImg = document.getElementById("img01");
+        var captionText = document.getElementById("caption");
+        /*  img.onclick = function () {
+              modal.style.display = "block";
+              modalImg.src = this.src;
+              captionText.innerHTML = this.alt;
+          }*/
+
+        function image(e) {
+            modal.style.display = "block";
+            modalImg.src = e.src;
+            captionText.innerHTML = e.alt;
+
+        }
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
     </script>
 }

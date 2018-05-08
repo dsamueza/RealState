@@ -270,11 +270,11 @@ function SaveNotaAJAX(Id, idarea,area) {
 
 
 
-function SaveMailAJAX(Id, asunto,destinatario,msg) {
+function SaveMailAJAX(Id, asunto,destinatario,msg,adjunto) {
 
     IdJsonPredido = Id
   
-
+    console.log(adjunto)
     $.ajax({
         type: "post",
         url: "/task/_Message",
@@ -284,8 +284,10 @@ function SaveMailAJAX(Id, asunto,destinatario,msg) {
             coment: msg,
             subject: asunto,
             des: destinatario,
-            Idpredio: IdJsonPredido.toString()
+            Idpredio: IdJsonPredido.toString(),
+            urlpath: adjunto
         },
+   
         success: function (data) {
             if (data) {
 
@@ -316,7 +318,7 @@ function SaveMailAJAX(Id, asunto,destinatario,msg) {
 
 }
 
-function SaveReunionAJAX(Id, asunto,tiempo, msg) {
+function SaveReunionAJAX(Id, asunto,tiempo, msg,destinarioAjax,typeAjax) {
 
     IdJsonPredido = Id
 
@@ -330,7 +332,9 @@ function SaveReunionAJAX(Id, asunto,tiempo, msg) {
             coment: msg,
             subject: asunto,
             reunion: tiempo,
-            Idpredio: IdJsonPredido.toString()
+            Idpredio: IdJsonPredido.toString(),
+            destinatario: destinarioAjax,
+            type:  typeAjax
         },
         success: function (data) {
             if (data) {
@@ -361,3 +365,4 @@ function SaveReunionAJAX(Id, asunto,tiempo, msg) {
     });
 
 }
+

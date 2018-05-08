@@ -663,7 +663,7 @@ namespace Realstate.Models.BaseDatos
 
                 entity.Property(e => e.imagen)
                     .IsRequired()
-                    .HasColumnType("image");
+                    .HasColumnType("varbinary(MAX)");
                 entity.Property(e => e.StreetMain).HasColumnType("nchar(500)");
 
                 entity.Property(e => e.StreetSecundary).HasColumnType("nchar(500)");

@@ -119,13 +119,13 @@
                 <br />
 
             </div>
-            <div class="box-footer">
+            @*<div class="box-footer">
                 <div class="col-md-2 pull-right" style="margin-top:10px; margin-right:13px;">
 
                     <button type="submit" value="Guardar" class="btn btn-block btn-success btn-flat">   <i class="fa fa-save"></i> Guardar </button>
 
                 </div>
-            </div>
+            </div>*@
 
             @*<div>
                 <a asp-action="Index">Back to List</a>
@@ -134,12 +134,28 @@
         <div id="IdPredio">
 
             @if (IdRegister != "0")
-        {
+    {
 
-            @await Html.PartialAsync("_Predio")
+        @await Html.PartialAsync("_Predio")
 
-    }
+}
+            <div class="row no-print">
+                <div class="col-xs-12">
 
+                    <button type="submit" class="btn btn-success pull-right">
+                        <i class="fa fa-save"></i> Guardar
+                    </button>
+
+                    @if (IdRegister != "0")
+                    {
+                <button type="button" class="btn btn-primary pull-right" onclick="addPredioC()" style="margin-right: 5px;">
+                    <i class="fa fa-plus"></i> Nuevo
+                </button>
+                    }
+                @*<a href="invoice-print.html" target="_blank" class="btn btn-default pull-right"><i class="fa fa-print"></i> Siguiente</a>*@
+
+                </div>
+            </div>
         </div>
 
     </form>
@@ -153,25 +169,28 @@
     <script>
      
         var IdAreaProspeccion = '@Html.Raw(IdRegister)';
-        bindPredio(IdAreaProspeccion)
+        bindPredio(IdAreaProspeccion, 1)
+        function addPredioC() { 
+
+            addlistVue();
+
+        }
         function Success()
         {
+            var imag=0
             if (IdAreaProspeccion != 0) { 
-
-         
-
                 if (app.$data.predios[0].image != '') {
-                    alert(app.$data.predios[0].image);
-                    Save();
-
-                }
+                        Save();
+                } else { 
+                    bootbox.alert("Predio 1 no cuenta con foto")
+                 }
             }
        
         }
 
         function Failure() {
 
-            alert("Form Failed");
+            bootbox.alert("Existio un error")
         }
 
     </script>

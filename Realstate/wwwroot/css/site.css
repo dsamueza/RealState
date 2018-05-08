@@ -86,3 +86,16 @@ background-color:#fff;
     color: red;
     margin-right: 5px;
 }
+.timeline {
+border:none !important;
+}
+.content-wrapper, .main-footer {
+    margin-left: 20px !important;
+    background-color: #ecf0f5 !important;
+}
+.skin-black .wrapper, .skin-black .main-sidebar, .skin-black .left-side {
+    background-color: #ecf0f5 !important;
+}
+.fixed .content-wrapper, .fixed .right-side {
+    padding-top: 10px !important;
+}

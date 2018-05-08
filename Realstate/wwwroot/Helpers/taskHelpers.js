@@ -19,8 +19,8 @@ function bindPredioID(Id) {
         success: function (data) {
             if (data) {
                 ApplyBindingPredioUnique(data);
-               // geo(parseFloat(data[0].latitude.trim()), parseFloat(data[0].length.trim()));
-                geo(-0.1559192, -78.4769077);
+               geo(parseFloat(data[0].latitude.trim()), parseFloat(data[0].length.trim()));
+             //   geo(-0.1559192, -78.4769077);
                 bindtaskID(data[0].id)
                 $.unblockUI();
             } else {

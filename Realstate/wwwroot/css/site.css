@@ -76,3 +76,13 @@ background-color:#fff;
     width: 85px !important;
     height: 130px !important;
 }
+
+#myModal-mardis {
+ 
+    padding-top: 50px !important;
+}
+
+#close-img {
+    color: red;
+    margin-right: 5px;
+}

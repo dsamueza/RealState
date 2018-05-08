@@ -43,11 +43,21 @@ namespace Realstate.Data.Negocio
         public int GuardarAreas_Prospeccion(ZonaProspectada _model) {
 
 
+            try
+            {
+
+                
+                _context.Add(_model);
+                _context.Entry(_model).State = _model.Id > 0 ? EntityState.Modified : EntityState.Added;
+                var get = _context.SaveChanges();
+                return get;
+            }
+            catch (Exception e)
+            {
+                string error = e.ToString();
+                return 0;
+            }
         
-            _context.Add(_model);
-            _context.Entry(_model).State = _model.Id > 0 ? EntityState.Modified : EntityState.Added;
-            var get= _context.SaveChanges();
-            return get;
         }
         /// <summary>
         /// Guardar Predios enviados en listas

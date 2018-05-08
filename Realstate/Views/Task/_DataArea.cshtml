@@ -59,8 +59,9 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <img alt="..." v-bind:src="predio.image"  class="margin " style="width:100px; height:70px;">
+                <img alt="..." v-bind:src="predio.image" class="margin " style="width:100px; height:70px;" v-bind:id="predio.id" onclick="image(this)" >
             </div>
+
             <!-- /.box-body -->
         </div>
     </div>

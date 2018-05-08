@@ -52,6 +52,7 @@ namespace Realstate.Controllers
                 ViewData["IdPredio"] = IdArea.ToString();
                 ViewBag.Propietario = new SelectList(_AreaProspeccionDAO.GetPropietario(), "Id", "Name");
                 ZonaProspectada _model = IdArea > 0 ?  _AreaProspeccionDAO.ObteneZonaProspectada(IdArea) : new ZonaProspectada();
+                ViewData["IdProyecto"] = _model.IdProyecto.ToString();
                 return View(_model);
             }
             return RedirectToAction(nameof(AccountController.Login), "Account");

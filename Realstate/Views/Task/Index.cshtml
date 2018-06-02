@@ -44,14 +44,14 @@
 
 <section class="content">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 col-md-offset-1">
 
             @await Html.PartialAsync("_DataArea")
 
 
         </div>
 
-        <div class="col-md-9">
+        <div class="col-md-7">
 
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs  ">
@@ -59,7 +59,7 @@
                     <li><a href="#reunion" data-toggle="tab">Tareas</a></li>
                     <li><a href="#tasks" data-toggle="tab">Reunión</a></li>
                     <li><a href="#note" data-toggle="tab">Notas</a></li>
-                    <li><a href="#settings" data-toggle="tab">Campo</a></li>
+                    @*<li><a href="#settings" data-toggle="tab">Campo</a></li>*@
                 </ul>
             </div>
             <div class="tab-content">
@@ -81,7 +81,7 @@
                 </div>
             </div>
             <br />
-            <h3> Actividades </h3>
+            <h3  style="margin-bottom:20px"> Actividades </h3>
             @await Html.PartialAsync("_Timeline")
 
         </div>
@@ -121,9 +121,11 @@
         function SaveCorreo() {
        
             if (urlUpdate != '') {
-                SaveMailAJAX(IdPredioActivo, $('#subject_msg').val(), $('#des_msg').val(), $('#coment_msg').val(), urlUpdate)
+                var a = CKEDITOR.instances['coment_msg'].getData();
+         
+                SaveMailAJAX(IdPredioActivo, $('#subject_msg').val(), $('#des_msg').val(), a, urlUpdate)
                 $fileInput = $('#file-es');
-
+              
                 $('#subject_msg').val('')
                 $('#des_msg').val('')
                 $('#coment_msg').val('')
@@ -187,7 +189,7 @@
             showRemove: false,
             dropZoneEnabled: false,
             previewClass: "bg-warning-mardis",
-            uploadUrl: "@Url.Action("UploadFiles", "Task")",
+            uploadUrl: "@Url.Action("UploadFiles", "Task")" ,
             allowedFileExtensions: ['jpg', 'png', 'gif', 'jpeg','rar'],
 
         }).on('fileuploaded', function (event, data, id, index) {
@@ -249,5 +251,7 @@
             modal.style.display = "none";
            
         }
+        CKEDITOR.replace('coment_msg')
+    
     </script>
 }

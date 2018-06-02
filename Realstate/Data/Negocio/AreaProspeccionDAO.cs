@@ -309,6 +309,7 @@ namespace Realstate.Data.Negocio
                     _taskDetail.ENDMeting = DateTime.Now;
                     _taskDetail.IdTask = _task.Id;
                     _taskDetail.subjects = asunto;
+                    _taskDetail.attached = adjunto;
                     _taskDetail.addressee = destinatario;
                     _context.Add(_taskDetail);
                     _context.Entry(_taskDetail).State = EntityState.Added;

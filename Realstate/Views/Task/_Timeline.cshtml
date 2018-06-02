@@ -8,7 +8,7 @@
                     <li class="box-header  time-label">
 
                         <button type="button" class="btn btn-box-tool btn bg-olive btn-flat" data-widget="collapse">
-                            {{moment(task_vue.DateModification).format('LT')}}
+                            {{moment(task_vue.dateModification).format('ll')}}
                         </button>
                     </li>
                     <!-- /.timeline-label -->
@@ -19,7 +19,7 @@
                         <i class="fa fa-sticky-note bg-blue"></i>
                         <div class="timeline-item" style="border-radius:0px !important">
 
-                            <span class="time"><i class="fa fa-clock-o"></i>   {{moment(task_vue.DateModification).format('LT')}}</span>
+                            <span class="time"><i class="fa fa-clock-o"></i>   {{moment(task_vue.dateModification).format('LT')}}</span>
                             <h3 class="timeline-header"><a href="#">Notas del Predio</a> </h3>
                             <div class="timeline-body">
                                 <div class=" invoice-col">
@@ -41,7 +41,7 @@
                     <li class="box-header  time-label">
 
                         <button type="button" class="btn btn-box-tool btn bg-aqua btn-flat" data-widget="collapse">
-                            {{moment(task_vue.DateModification).format('LT')}}
+                            {{moment(task_vue.dateModification).format('ll')}}
                         </button>
                     </li>
                     <!-- /.timeline-label -->
@@ -52,19 +52,25 @@
                         <i class="fa fa-envelope bg-maroon"></i>
                         <div class="timeline-item" style="border-radius:0px !important">
 
-                            <span class="time"><i class="fa fa-clock-o"></i>   {{moment(task_vue.DateModification).format('LT')}}</span>
+                            <span class="time"><i class="fa fa-clock-o"></i>   {{moment(task_vue.dateModification).format('LT')}}</span>
                             <h3 class="timeline-header"><a href="#">Destinatario :</a>  {{task_vue.detailtaks[0].addressee}}</h3>
                             <div class="timeline-body">
                                 <div class=" invoice-col">
                                     <b>{{task_vue.detailtaks[0].subjects}}</b> <br>
                                     <p v-html="task_vue.detailtaks[0].coment"></p>
                                 </div>
-
+                                <div class=" invoice-col" v-if="task_vue.detailtaks[0].attached!=''">
+                                    <hr />
+                                <a v-bind:href="'.'+task_vue.detailtaks[0].attached" class="btn btn-app" >
+                                    <span class="badge bg-aqua">1</span>
+                                    <i class="fa fa-file"></i> Adjunto
+                                </a>
+                               
                             </div>
-                            <div class="timeline-footer pull-right ">
                             </div>
-                        </div>
+                            </div>
                     </li>
+                   
 
                 </ul>
 
@@ -75,8 +81,8 @@
                     <!-- timeline time label -->
                     <li class="box-header  time-label">
 
-                        <button type="button" class="btn btn-box-tool btn bg-warning btn-flat" data-widget="collapse">
-                            {{moment(task_vue.DateModification).format('LT')}}
+                        <button type="button" class="btn btn-box-tool btn bg-orange-active btn-flat" data-widget="collapse">
+                            {{moment(task_vue.dateModification).format('ll')}}
                         </button>
                     </li>
                     <!-- /.timeline-label -->
@@ -88,7 +94,7 @@
                         <i class="fa fa-tasks bg-orange"></i>
                         <div class="timeline-item" style="border-radius:0px !important">
 
-                            <span class="time"><i class="fa fa-clock-o"></i>   {{moment(task_vue.DateModification).format('LT')}}</span>
+                            <span class="time"><i class="fa fa-clock-o"></i>   {{moment(task_vue.dateModification).format('LT')}}</span>
                             <h3 class="timeline-header"><a href="#">Tarea</a>  {{task_vue.detailtaks[0].addressee}}</h3>
                             <div class="timeline-body">
                                 <div class=" invoice-col">
@@ -100,6 +106,7 @@
 
                             </div>
                             <div class="timeline-footer pull-right ">
+                          
                             </div>
                         </div>
                     </li>
@@ -111,7 +118,7 @@
                     <li class="box-header  time-label">
 
                         <button type="button" class="btn btn-box-tool btn bg-aqua btn-flat" data-widget="collapse">
-                            {{moment(task_vue.DateModification).format('LT')}}
+                            {{moment(task_vue.dateModification).format('ll')}}
                         </button>
                     </li>
                     <!-- /.timeline-label -->
@@ -122,7 +129,7 @@
                         <i class="fa fa-calendar bg-red"></i>
                         <div class="timeline-item" style="border-radius:0px !important">
 
-                            <span class="time"><i class="fa fa-clock-o"></i>   {{moment(task_vue.DateModification).format('LT')}}</span>
+                            <span class="time"><i class="fa fa-clock-o"></i>   {{moment(task_vue.dateModification).format('LT')}}</span>
                             <h3 class="timeline-header"><a href="#">Reunión</a>  </h3>
                             <div class="timeline-body">
                                 <div class=" invoice-col">

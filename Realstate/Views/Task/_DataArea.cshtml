@@ -13,8 +13,8 @@
                 <div class="form-group">
                     <label>Estado</label>
                     <select name="statusRegister" class="form-control" v-model="predio.statusRegister">
-                        <option value="A">Activo</option>
-                        <option value="D">Desactivado</option>
+                        <option value="A         ">Activo</option>
+                        <option value="D         ">Desactivado</option>
                     </select>
                 </div>
                 <ul class="list-group list-group-unbordered">
@@ -23,7 +23,7 @@
                     </li>
                     <li class="list-group-item">
                         <b>Propietario</b>
-                        <select v-model="predio.idPropietario" class="form-control" asp-items="@ViewBag.Propietario"></select>
+                        <select v-model="predio.idPropietario" class="form-control" asp-items="@ViewBag.Propietario" disabled></select>
                     </li>
                     <li class="list-group-item">
                         <b>Zona</b> <a class="pull-right">{{predio.zona}}</a>
@@ -33,7 +33,7 @@
                     </li>
                 </ul>
 
-                <a v-bind:href="'../UrbanProperty/AreasProspeccion?idProyecto=' + predio.idProyecto +'&IdArea='+predio.idZonaProspectada" class="btn bg-olive btn-flat margin pull-right"> Editar</a>
+                <a v-bind:href="'./UrbanProperty/AreasProspeccion?idProyecto=' + predio.idProyecto +'&IdArea='+predio.idZonaProspectada" class="btn bg-olive btn-flat margin pull-right"> Editar</a>
             </div>
             <!-- /.box-body -->
         </div>

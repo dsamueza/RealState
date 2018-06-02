@@ -52,7 +52,13 @@ namespace Realstate.Controllers
                 ViewData["IdPredio"] = IdArea.ToString();
                 ViewBag.Propietario = new SelectList(_AreaProspeccionDAO.GetPropietario(), "Id", "Name");
                 ZonaProspectada _model = IdArea > 0 ?  _AreaProspeccionDAO.ObteneZonaProspectada(IdArea) : new ZonaProspectada();
-                ViewData["IdProyecto"] = _model.IdProyecto.ToString();
+                if (IdProyecto == 0)
+                {
+                    ViewData["IdProyecto"] = _model.IdProyecto.ToString();
+                }
+                else {
+                    ViewData["IdProyecto"] = IdProyecto.ToString();
+                }
                 return View(_model);
             }
             return RedirectToAction(nameof(AccountController.Login), "Account");
@@ -60,7 +66,7 @@ namespace Realstate.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AreasProspeccion(ZonaProspectada Model)
+        public async Task<JsonResult> AreasProspeccion(ZonaProspectada Model)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user != null)
@@ -75,9 +81,10 @@ namespace Realstate.Controllers
 
                 }
                 ViewData["IdPredio"] = Model.Id.ToString();
-                return View(Model);
+                ViewData["IdProyecto"] = Model.IdProyecto.ToString();
+                return Json(Model.Id.ToString());
             }
-            return RedirectToAction(nameof(AccountController.Login), "Account");
+            return Json("0");
 
         }
         //[HttpPost]

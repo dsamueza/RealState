@@ -40,7 +40,7 @@ namespace Realstate.Data.Negocio
             {
                 Correos Cr = new Correos();
                 MailMessage mnsj = new MailMessage();
-
+                mnsj.IsBodyHtml = true;
                 mnsj.Subject = _subject;
 
                 mnsj.To.Add(new MailAddress(_to));
@@ -48,7 +48,10 @@ namespace Realstate.Data.Negocio
                 mnsj.From = new MailAddress("mardisresearch.engine@gmail.com", "Mardis Research");
 
                 /* Si deseamos Adjuntar algún archivo*/
-                mnsj.Attachments.Add(new Attachment(adjunto));
+                if (adjunto != "") {
+                    mnsj.Attachments.Add(new Attachment(adjunto));
+                }
+             
 
                 mnsj.Body = _body;
 

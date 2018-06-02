@@ -7,10 +7,12 @@ var IdJsonPredido
 
 function bindPredio(Id,status) {
     IdJsonPredido = Id
+  
+
     $.blockUI({ message: "cargando..." });
     $.ajax({
         type: "GET",
-        url: "/UrbanProperty/GetGetPredio",
+        url: "../UrbanProperty/GetGetPredio",
         // async: false,
         data: {
             idPredio: IdJsonPredido
@@ -20,7 +22,10 @@ function bindPredio(Id,status) {
         success: function (data) {
             if (data) {
   
-                if (status == 1) { ApplyBindingPredio(data);}
+                if (status == 1) {
+                
+                    ApplyBindingPredio(data);
+                }
                 if (status == 2) {
 
                   
@@ -102,7 +107,18 @@ function ApplyBindingPredio(_model) {
             var coordenadas = panorama[e].getPosition() + '';
             var coord1 = coordenadas.replace("(", "")
             var coord2 = coord1.replace(")", "")
-            this.predios[e].coordenas= coord2
+  
+
+            this.predios[e].coordenas = coord2
+
+
+            var cadena = this.predios[e].coordenas,
+                separador = ",", // un espacio en blanco
+                limite = 2,
+                arregloDeSubCadenas = cadena.split(separador, limite)
+
+            this.predios[e].latitude = arregloDeSubCadenas[0].trim()
+            this.predios[e].length = arregloDeSubCadenas[1].trim()
         },
         addPredio: function () {
             this.predios.push({
@@ -125,10 +141,10 @@ function ApplyBindingPredio(_model) {
 
 
         },
-        addRemove: function (index) {
+            addRemove: function (index) {
           
-            deletePredio(this.predios[index].id, index)
-        }, removedata: function (index) {
+                deletePredio(this.predios[index].id, index)
+            }, removedata: function (index) {
 
             this.predios.splice(index, 1);
         },
@@ -149,7 +165,7 @@ function Save() {
     $.blockUI({ message: "Guardando..." });
 
     $.ajax({
-        url: "/UrbanProperty/GuardarPredios",
+        url: "./UrbanProperty/GuardarPredios",
         type: "post",
         data: {
             ModelJson: ko.toJSON(app.$data.predios),
@@ -176,7 +192,7 @@ function deletePredio(id,index) {
     $.blockUI({ message: "Eliminando..." });
 
     $.ajax({
-        url: "/UrbanProperty/deletePredios",
+        url: "./UrbanProperty/deletePredios",
         type: "post",
         data: {
             
@@ -208,7 +224,7 @@ function DataPropietario(id) {
  
 
     $.ajax({
-        url: "/UrbanProperty/GetPropietario",
+        url: "./UrbanProperty/GetPropietario",
         type: "get",
         data: {
 

@@ -5,6 +5,11 @@
     <UserSecretsId>aspnet-Realstate-FCB16918-DB5C-4B10-8291-4349FB0DDAE7</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;NETCOREAPP2_0;NETCOREAPP2_0;NETCOREAPP2_0;NETCOREAPP2_0;NETCOREAPP2_0;NETCOREAPP2_0;NETCOREAPP2_0</DefineConstants>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
   <ItemGroup>
     <Content Include="wwwroot\Framework\bower_components\bootstrap-colorpicker\.bower.json" />
     <Content Include="wwwroot\Framework\bower_components\bootstrap-colorpicker\bower.json" />

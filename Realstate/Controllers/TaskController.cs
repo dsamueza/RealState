@@ -93,10 +93,11 @@ namespace Realstate.Controllers
             {
                 if (ModelState.IsValid)
                 {
-
-                    var id = _AreaProspeccionDAO.GuardarAreas_task(coment, int.Parse(Idpredio), des, subject, 2, urlpath, user.UserName,"");
+                    var pathUrl = urlpath != null ? urlpath : "";
+                    var id = _AreaProspeccionDAO.GuardarAreas_task(coment, int.Parse(Idpredio), des, subject, 2, pathUrl, user.UserName,"");
                     var model = _AreaProspeccionDAO.ObtenerTareasbyId(id);
-                      _correo.enviar(subject,des,coment, urlpath);
+                    var pathUrlmail = urlpath != null ? _Env.WebRootPath + urlpath : "";
+                    _correo.enviar(subject,des,coment, pathUrlmail);
                     JSonConvertUtil.Convert(model);
                     return Json(model);
                 }
@@ -198,12 +199,14 @@ namespace Realstate.Controllers
             // Checking no of files injected in Request object  
             string LogFile = localDate.ToString("yyyyMMddHHmmss");
             var Filepath = "";
+            string pathweb = "";
             //    bool exitdirectorio = false;
             foreach (var item in Request.Form.Files)
             {
                 var file = item;
                 string fileName = file.FileName;
                  Filepath = _Env.WebRootPath + "\\Document\\ " + LogFile + "_" + file.FileName.ToString();
+                 pathweb= "\\Document\\ " + LogFile + "_" + file.FileName.ToString();
                 if (file.Length== 0)
                     continue;
                 if (file.Length > 0)
@@ -215,7 +218,7 @@ namespace Realstate.Controllers
                     }
                 }
                 }
-            return Json(Filepath);
+            return Json(pathweb);
         }
            
         }

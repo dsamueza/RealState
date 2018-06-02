@@ -9,7 +9,7 @@ function bindPredioID(Id) {
 
     $.ajax({
         type: "GET",
-        url: "/task/GetPredio",
+        url: "../task/GetPredio",
         // async: false,
         data: {
             idPredio: IdJsonPredido
@@ -45,7 +45,7 @@ function bindtaskID(Id) {
 
     $.ajax({
         type: "GET",
-        url: "/task/GetDetailTask",
+        url: "../task/GetDetailTask",
         // async: false,
         data: {
             idPredio: IdJsonPredido
@@ -232,7 +232,7 @@ function SaveNotaAJAX(Id, idarea,area) {
 
     $.ajax({
         type: "post",
-        url: "/task/_Note",
+        url: "../task/_Note",
         // async: false,
         data: {
             coment: area,
@@ -243,7 +243,8 @@ function SaveNotaAJAX(Id, idarea,area) {
 
                 // geo(parseFloat(data[0].latitude.trim()), parseFloat(data[0].length.trim()));
                 vuetask.addlist(data[0])
-                CKEDITOR.instances['coment_note'].setData('');;
+              
+                CKEDITOR.instances['coment_note'].setData('');
                 $.toaster({
                     priority: 'success',
                     title: 'Aviso',
@@ -277,7 +278,7 @@ function SaveMailAJAX(Id, asunto,destinatario,msg,adjunto) {
     console.log(adjunto)
     $.ajax({
         type: "post",
-        url: "/task/_Message",
+        url: "../task/_Message",
         
         // async: false,
         data: {
@@ -293,7 +294,7 @@ function SaveMailAJAX(Id, asunto,destinatario,msg,adjunto) {
 
                 // geo(parseFloat(data[0].latitude.trim()), parseFloat(data[0].length.trim()));
                 vuetask.addlist(data[0])
-                CKEDITOR.instances['coment_note'].setData('');;
+                CKEDITOR.instances['coment_msg'].setData('');
                 $.toaster({
                     priority: 'success',
                     title: 'Aviso',
@@ -325,7 +326,7 @@ function SaveReunionAJAX(Id, asunto,tiempo, msg,destinarioAjax,typeAjax) {
 
     $.ajax({
         type: "post",
-        url: "/task/_interaction",
+        url: "../task/_interaction",
 
         // async: false,
         data: {

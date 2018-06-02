@@ -14,7 +14,7 @@
     <h2>AreasProspeccion</h2>
 
     <form asp-action="AreasProspeccion" id="formSave"    data-ajax-method="POST" data-ajax="true"        data-ajax-success="Success"
-                          data-ajax-failure ="Failure">
+                          data-ajax-failure ="Failure" 	data-ajax-begin="Begin">
 
         <div class="box box-default">
             <div class="box-header with-border">
@@ -34,7 +34,7 @@
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group-inline">
                             <label asp-for="IdProyecto" class="control-label " ></label>
-                            <input asp-for="IdProyecto" class="form-control" value="@IdProyecto" />
+                            <input asp-for="IdProyecto" class="form-control"  value="@IdProyecto" />
                     </div>
                     </div>
                     <div class="col-md-4">
@@ -90,7 +90,7 @@
                     <div class="col-md-4">
                         <div class="form-group-inline">
                             <label asp-for="Zona" class="control-label"></label>
-                            <input asp-for="Zona" class="form-control" />
+                            <input asp-for="Zona" class="form-control" type="number" />
                             <span asp-validation-for="Zona" class="text-danger"></span>
                         </div>
                     </div>
@@ -141,17 +141,20 @@
 }
             <div class="row no-print">
                 <div class="col-xs-12">
+                    <a href="@Url.Action("ProyectosZona", "Projects")" class="btn btn-default pull-left">
+                        <i class="glyphicon glyphicon-log-out"></i> Salir
+                    </a>
 
                     <button type="submit" class="btn btn-success pull-right">
                         <i class="fa fa-save"></i> Guardar
                     </button>
 
                     @if (IdRegister != "0")
-                    {
+    {
                 <button type="button" class="btn btn-primary pull-right" onclick="addPredioC()" style="margin-right: 5px;">
                     <i class="fa fa-plus"></i> Nuevo
                 </button>
-                    }
+}
                 @*<a href="invoice-print.html" target="_blank" class="btn btn-default pull-right"><i class="fa fa-print"></i> Siguiente</a>*@
 
                 </div>
@@ -167,16 +170,31 @@
     <script src="~/Helpers/_PredioHelpers.js"></script>
 
     <script>
-     
+        
+        var IdAreaIdProyecto= '@Html.Raw(IdProyecto)';  
         var IdAreaProspeccion = '@Html.Raw(IdRegister)';
-        bindPredio(IdAreaProspeccion, 1)
+       
+
+        if (IdAreaProspeccion != 0) {
+            bindPredio(IdAreaProspeccion, 1)
+          //  $("#IdPredio").load('@(Url.Action("AreasProspeccion", "UrbanProperty", ""))?IdProyecto=' + 6);
+        }
+       
         function addPredioC() { 
 
             addlistVue();
 
         }
-        function Success()
+        function Success(data)
         {
+    
+            if (IdAreaProspeccion == 0) { 
+
+                window.location.href = '../UrbanProperty/AreasProspeccion/? IdProyecto=' + IdAreaIdProyecto + '&IdArea=' + data.toString();
+                @*$("#IdPredio").load('@(Url.Action("AreasProspeccion", "UrbanProperty", ""))?IdProyecto=' + IdAreaIdProyecto);*@
+               
+            }
+     
             var imag=0
             if (IdAreaProspeccion != 0) { 
                 if (app.$data.predios[0].image != '') {
@@ -186,8 +204,11 @@
                  }
             }
        
+        } 
+        function Begin() {
+            $.blockUI({ message: "Guardando..." });
+          
         }
-
         function Failure() {
 
             bootbox.alert("Existio un error")

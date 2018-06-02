@@ -99,3 +99,44 @@ border:none !important;
 .fixed .content-wrapper, .fixed .right-side {
     padding-top: 10px !important;
 }
+
+.timeline:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px !important;
+    background: rgb(153, 172, 194) ;
+    margin: 0;
+    top: -18px !important;
+    border-radius: 1px;
+}
+.timeline {
+    background: transparent !important;
+    margin: 0px !important;
+}
+#timeline .box {
+    box-shadow: none !important;
+}
+
+/*.timeline-inverse > li > .timeline-item {
+    background: rgb(255, 255, 255);
+    border: 1px solid #ddd;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}*/
+
+.timeline-inverse > li > .timeline-item {
+    border-radius: .1875rem !important;
+    background-color: #fff !important;
+    box-shadow: 0 1px 5px 0 rgba(45,62,80,.12) !important;
+    padding: 2.5rem !important;
+    position: relative !important;
+    width: 90% !important;
+}
+
+.timeline-header a {
+    color: #003f75 !important;
+}
+
+

@@ -36,11 +36,15 @@ namespace Realstate.Models.BaseDatos
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer(@"Server=tcp:mardisenginetestbd.database.windows.net,1433;Initial Catalog=GeoRenting;Persist Security Info=False;User ID=mardisengine;Password=Mard!s3ngin3;Encrypt=True;TrustServerCertificate=False;MultipleActiveResultSets=True;App=EntityFramework; Connection Lifetime=240;Timeout=60; Max Pool Size = 200; Min Pool Size = 10; Pooling=True;");
-            }
-        }
+                optionsBuilder.UseSqlServer(@"Server=CHR-PC004\SQLEXPRESS;initial catalog=GeoRenting;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;");
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+            }
+        
+    
+        }
+  
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Account>(entity =>
             {

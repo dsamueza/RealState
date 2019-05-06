@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Realstate.Models.BaseDatos;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Realstate.Controllers
 {
@@ -20,6 +21,7 @@ namespace Realstate.Controllers
         }
 
         // GET: Projects
+   
         public async Task<IActionResult> Index()
         {
             var geoRentingContext = _context.Project.Where(x => x.StatusRegister != "E").Include(p => p.IdAccountNavigation)

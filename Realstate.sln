@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Realstate", "Realstate\Realstate.csproj", "{95C47ECE-1466-4D6B-92E7-E6E17491F5AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Realstate", "Realstate\Realstate.csproj", "{95C47ECE-1466-4D6B-92E7-E6E17491F5AE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Datos", "Datos", "{A4BE45AF-12BB-4713-8DA3-E0FD8F776E35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatosBliblioteca", "DatosBliblioteca\DatosBliblioteca.csproj", "{3AE85296-DF5D-4166-8736-21CFEE1E397A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatosBliblioteca", "DatosBliblioteca\DatosBliblioteca.csproj", "{3AE85296-DF5D-4166-8736-21CFEE1E397A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{575C23B1-741F-429F-A5D5-4E1971F04BEE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Negocio", "Negocio", "{A50C1E9E-480F-434E-BFF2-C8A3ADD82761}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NegocioBiblioteca", "NegocioBiblioteca\NegocioBiblioteca.csproj", "{64D8BBF8-43B3-46B0-80B3-902D060C9B49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NegocioBiblioteca", "NegocioBiblioteca\NegocioBiblioteca.csproj", "{64D8BBF8-43B3-46B0-80B3-902D060C9B49}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
